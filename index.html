@@ -721,7 +721,51 @@
                 margin: 0 auto;
             }
         }
-    </style>
+    
+@media (max-width: 600px) {
+    .motivos-grid {
+        grid-template-columns: 1fr;
+        padding: 0;
+    }
+
+    .motivo-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 12px;
+        min-height: auto;
+    }
+
+    .motivo-image-container {
+        min-width: 80px;
+        min-height: 80px;
+        padding: 8px;
+    }
+
+    .motivo-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .motivo-content {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .quantity-controls {
+        justify-content: center;
+    }
+
+    .motivo-name {
+        font-size: 1em;
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+}
+
+</style>
 </head>
 <body>
     <div class="progress-bar">
@@ -962,7 +1006,7 @@
             'Batman': 'motivos/K_Batman.png',
             'Beso': 'motivos/K_Beso.png',
             'Caballo': 'motivos/K_Caballo.png',
-            'Carita feliz': 'motivos/K_Carita_Feliz.png',
+            'Carita feliz': 'motivos/K_Carita_feliz.png',
             'Corazón Karol G': 'motivos/K_Crazon_CG.png',
             'Delfín': 'motivos/K_Delfin.png',
             'Dinosaurio': 'motivos/K_Dinosaurio.png',
