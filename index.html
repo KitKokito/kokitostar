@@ -500,8 +500,8 @@
             position: relative;
         }
 
-        /* Máscara blanca para hover/touch - Convierte la imagen a blanco */
-        .motivo-image-container:hover .motivo-image {
+        /* Máscara blanca SOLO para hover/touch temporal - NO para elementos seleccionados */
+        .motivo-image-container:hover:not(.touching) .motivo-image {
             transform: scale(1.1);
             filter: 
                 brightness(0) 
@@ -509,11 +509,14 @@
                 drop-shadow(0 4px 12px rgba(0,0,0,0.3));
         }
 
-        .motivo-image-container:active .motivo-image {
-            filter: 
-                brightness(0) 
-                invert(1) 
-                drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+        /* Estado normal para elementos seleccionados - SIN máscara */
+        .motivo-item.selected .motivo-image {
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)) brightness(1.05);
+        }
+
+        .motivo-item.selected .motivo-image-container:hover .motivo-image {
+            transform: scale(1.1);
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)) brightness(1.1);
         }
 
         /* Efectos especiales para touch en móviles */
@@ -523,12 +526,20 @@
                 transition: all 0.1s ease;
             }
             
-            .motivo-image-container:active .motivo-image {
+            /* Máscara blanca temporal para touch SOLO si no está seleccionado */
+            .motivo-image-container:active:not(.selected-touch) .motivo-image {
                 transform: scale(1.05);
                 filter: 
                     brightness(0) 
                     invert(1) 
                     drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+                transition: all 0.1s ease;
+            }
+            
+            /* Touch en elementos seleccionados - SIN máscara */
+            .motivo-item.selected .motivo-image-container:active .motivo-image {
+                transform: scale(1.05);
+                filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)) brightness(1.1);
                 transition: all 0.1s ease;
             }
         }
