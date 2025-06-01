@@ -256,44 +256,47 @@
 
         .instructions {
             background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
             border: 2px solid #E50695;
         }
 
         .instructions h3 {
             color: #E50695;
-            font-size: 1.4em;
-            margin-bottom: 15px;
+            font-size: 1.1em;
+            margin-bottom: 10px;
             text-align: center;
         }
 
         .step {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
-            padding: 10px;
+            margin-bottom: 8px;
+            padding: 6px;
             background: rgba(229, 6, 149, 0.1);
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         .step-number {
             background: #E50695;
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            margin-right: 15px;
+            font-size: 0.8em;
+            margin-right: 10px;
             flex-shrink: 0;
         }
 
         .step-text {
             flex: 1;
+            font-size: 0.85em;
+            line-height: 1.3;
         }
 
         .quick-select {
@@ -379,70 +382,173 @@
 
         .motivos-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
             margin-bottom: 30px;
             padding: 0 5px;
         }
 
         .motivo-item {
-            background: rgba(0, 0, 0, 0.9);
-            border: 3px solid #E50695;
-            border-radius: 15px;
-            padding: 12px;
-            transition: all 0.3s ease;
+            background: linear-gradient(145deg, rgba(229, 6, 149, 0.1), rgba(255, 105, 180, 0.05));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(229, 6, 149, 0.3);
+            border-radius: 20px;
+            padding: 15px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             color: white;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
-            min-height: 100px;
+            text-align: center;
+            gap: 12px;
+            min-height: auto;
             width: 100%;
             box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .motivo-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .motivo-item:hover::before {
+            left: 100%;
         }
 
         .motivo-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(229, 6, 149, 0.4);
+            transform: translateY(-8px) scale(1.02);
             border-color: #E50695;
+            background: linear-gradient(145deg, rgba(229, 6, 149, 0.2), rgba(255, 105, 180, 0.1));
+            box-shadow: 
+                0 15px 35px rgba(229, 6, 149, 0.3),
+                0 0 0 1px rgba(229, 6, 149, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .motivo-item.selected {
+            border-color: #E50695;
+            background: linear-gradient(145deg, rgba(229, 6, 149, 0.25), rgba(255, 105, 180, 0.15));
+            box-shadow: 
+                0 8px 25px rgba(229, 6, 149, 0.4),
+                0 0 0 2px rgba(229, 6, 149, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
         }
 
         .motivo-item.disabled {
-            opacity: 0.5;
+            opacity: 0.4;
             pointer-events: none;
+            filter: grayscale(100%);
         }
 
         .motivo-image-container {
-            background: #E50695;
-            border-radius: 12px;
+            background: #ffffff;
+            border-radius: 50%;
             padding: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 110px;
-            min-height: 110px;
+            min-width: 120px;
+            min-height: 120px;
             flex-shrink: 0;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .motivo-image-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #E50695, #ff69b4, #ff1493, #E50695);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 4s linear infinite;
         }
 
         .motivo-image-container:hover {
-            background: #ff69b4;
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(229, 6, 149, 0.4);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 
+                0 0 30px rgba(229, 6, 149, 0.6),
+                0 0 50px rgba(229, 6, 149, 0.3),
+                0 8px 25px rgba(0,0,0,0.15);
+            animation-play-state: paused;
         }
 
         .motivo-image {
-            width: 90px;
-            height: 90px;
+            width: 100px;
+            height: 100px;
             object-fit: contain;
             pointer-events: none;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Máscara blanca para hover/touch - Convierte la imagen a blanco */
+        .motivo-image-container:hover .motivo-image {
+            transform: scale(1.1);
+            filter: 
+                brightness(0) 
+                invert(1) 
+                drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+        }
+
+        .motivo-image-container:active .motivo-image {
+            filter: 
+                brightness(0) 
+                invert(1) 
+                drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+        }
+
+        /* Efectos especiales para touch en móviles */
+        @media (hover: none) and (pointer: coarse) {
+            .motivo-image-container:active {
+                transform: scale(1.05);
+                transition: all 0.1s ease;
+            }
+            
+            .motivo-image-container:active .motivo-image {
+                transform: scale(1.05);
+                filter: 
+                    brightness(0) 
+                    invert(1) 
+                    drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+                transition: all 0.1s ease;
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .motivo-content {
-            flex: 1;
             display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
             align-items: center;
-            justify-content: space-between;
         }
 
         .motivo-name {
@@ -451,62 +557,139 @@
             color: white;
             font-size: 1em;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            text-align: center;
+            overflow-wrap: break-word;
+            line-height: 1.2;
+            margin-bottom: 4px;
         }
 
         .quantity-controls {
             display: flex;
             align-items: center;
-            gap: 6px;
-            flex-shrink: 0;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
         }
 
         .btn-quantity {
-            background: white;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
             color: #E50695;
-            border: 2px solid white;
-            width: 35px;
-            height: 35px;
+            border: 2px solid rgba(229, 6, 149, 0.3);
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-quantity::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(229, 6, 149, 0.2), transparent);
+            border-radius: 50%;
             transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn-quantity:hover::before {
+            width: 100%;
+            height: 100%;
         }
 
         .btn-quantity:hover {
-            background: #E50695;
+            background: linear-gradient(145deg, #E50695, #ff69b4);
             color: white;
             transform: scale(1.1);
+            border-color: #E50695;
+            box-shadow: 
+                0 0 20px rgba(229, 6, 149, 0.5),
+                0 4px 15px rgba(229, 6, 149, 0.3);
+        }
+
+        .btn-quantity:active {
+            transform: scale(0.95);
         }
 
         .btn-quantity:disabled {
-            background: #ccc;
+            background: rgba(102, 102, 102, 0.3);
             color: #666;
-            border-color: #ccc;
+            border-color: rgba(102, 102, 102, 0.3);
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .quantity-display {
-            background: #000;
+            background: linear-gradient(145deg, rgba(229, 6, 149, 0.2), rgba(255, 105, 180, 0.1));
+            backdrop-filter: blur(10px);
             color: white;
-            border: 2px solid white;
-            border-radius: 8px;
+            border: 2px solid rgba(229, 6, 149, 0.4);
+            border-radius: 12px;
             width: 45px;
-            height: 35px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2em;
             font-weight: bold;
             font-family: 'Arial Black', Arial, sans-serif;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .quantity-display.animate {
+            animation: pulse 0.4s ease;
+            background: linear-gradient(145deg, #E50695, #ff69b4);
+            border-color: #E50695;
+            box-shadow: 
+                0 0 15px rgba(229, 6, 149, 0.6),
+                inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(0); }
+            10%, 30%, 70%, 90% { transform: translateX(-5px); }
+            40%, 60% { transform: translateX(5px); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Efecto de flotar para elementos seleccionados */
+        .motivo-item.selected {
+            animation: float 2s ease-in-out infinite;
+        }
+
+        /* Efecto de brillo para los contadores */
+        .counter-number.animate {
+            animation: countUp 0.5s ease, glow 0.8s ease;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px rgba(229, 6, 149, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(229, 6, 149, 0.8), 0 0 30px rgba(229, 6, 149, 0.6); }
+            100% { text-shadow: 0 0 5px rgba(229, 6, 149, 0.5); }
         }
 
         .colores-grid {
@@ -687,14 +870,16 @@
             color: white;
         }
 
+        /* MEDIA QUERIES ACTUALIZADAS PARA DISPOSITIVOS MÓVILES */
         @media (max-width: 768px) {
             .counters {
                 flex-direction: column;
                 gap: 20px;
             }
             
+            /* Mantener 3 columnas pero ajustar espaciado en tablets */
             .motivos-grid {
-                grid-template-columns: 1fr;
+                gap: 10px;
             }
             
             .colores-grid {
@@ -721,66 +906,134 @@
                 margin: 0 auto;
             }
         }
+
+        /* MEDIA QUERY PRINCIPAL PARA MÓVILES - AJUSTES MENORES */
+        @media (max-width: 600px) {
+            /* AJUSTAR ESPACIADO EN MÓVILES PARA 3 COLUMNAS */
+            .motivos-grid {
+                gap: 6px;
+                padding: 0;
+            }
+
+            /* AJUSTAR TAMAÑOS PARA MÓVILES */
+            .motivo-item {
+                padding: 8px;
+                gap: 6px;
+                border-radius: 15px;
+            }
+
+            /* IMÁGENES AJUSTADAS PARA MÓVILES */
+            .motivo-image-container {
+                min-width: 70px;
+                min-height: 70px;
+                padding: 6px;
+            }
+
+            .motivo-image {
+                width: 60px;
+                height: 60px;
+            }
+
+            .motivo-name {
+                font-size: 0.85em;
+            }
+
+            /* CONTROLES DE CANTIDAD MÁS COMPACTOS */
+            .quantity-controls {
+                gap: 6px;
+            }
+
+            .btn-quantity {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+
+            .quantity-display {
+                width: 38px;
+                height: 30px;
+                font-size: 1em;
+                border-radius: 8px;
+            }
+
+            /* AJUSTES ADICIONALES PARA PANTALLAS MUY PEQUEÑAS */
+            .section-title {
+                font-size: 1.4em;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .counters {
+                padding: 15px;
+            }
+
+            .counter-number {
+                font-size: 2em;
+            }
+
+            .counter-label {
+                font-size: 0.9em;
+            }
+        }
+
+        /* MEDIA QUERY PARA PANTALLAS MUY PEQUEÑAS */
+        @media (max-width: 400px) {
+            .motivo-image-container {
+                min-width: 60px;
+                min-height: 60px;
+                padding: 4px;
+            }
+
+            .motivo-image {
+                width: 50px;
+                height: 50px;
+            }
+
+            .motivo-name {
+                font-size: 0.75em;
+            }
+
+            .btn-quantity {
+                width: 26px;
+                height: 26px;
+                font-size: 14px;
+            }
+
+            .quantity-display {
+                width: 32px;
+                height: 26px;
+                font-size: 0.9em;
+                border-radius: 6px;
+            }
+
+            .quantity-controls {
+                gap: 4px;
+            }
+        }
+    </style>
     
-@media (max-width: 600px) {
-    .motivos-grid {
-        grid-template-columns: 1fr;
-        padding: 0;
-    }
+    <!-- Meta tags para vista previa -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kitkokito.github.io/kokitostar/" />
+    <meta property="og:title" content="Kokito Star - Tu marca de confianza" />
+    <meta property="og:description" content="Descubre Kokito Star, la mejor experiencia para ti y tu familia. Calidad y diversión garantizada." />
+    <meta property="og:image" content="https://kitkokito.github.io/kokitostar/preview-image.jpg" />
 
-    .motivo-item {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 12px;
-        min-height: auto;
-    }
-
-    .motivo-image-container {
-        min-width: 80px;
-        min-height: 80px;
-        padding: 8px;
-    }
-
-    .motivo-image {
-        width: 70px;
-        height: 70px;
-    }
-
-    .motivo-content {
-        flex-direction: column;
-        gap: 8px;
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .quantity-controls {
-        justify-content: center;
-    }
-
-    .motivo-name {
-        font-size: 1em;
-        max-width: 100%;
-        overflow-wrap: break-word;
-    }
-}
-
-</style>
-<head>
-  <!-- Aquí asumo que tienes otras etiquetas, estilos o scripts -->
-
-  <!-- Agrega aquí las etiquetas para vista previa (Open Graph y Twitter Cards) -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://kitkokito.github.io/kokitostar/" />
-  <meta property="og:title" content="Kokito Star - Tu marca de confianza" />
-  <meta property="og:description" content="Descubre Kokito Star, la mejor experiencia para ti y tu familia. Calidad y diversión garantizada." />
-  <meta property="og:image" content="https://kitkokito.github.io/kokitostar/preview-image.jpg" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://kitkokito.github.io/kokitostar/" />
-  <meta name="twitter:title" content="Kokito Star - Tu marca de confianza" />
-  <meta name="twitter:description" content="Descubre Kokito Star, la mejor experiencia para ti y tu familia. Calidad y diversión garantizada." />
-  <meta name="twitter:image" content="https://kitkokito.github.io/kokitostar/preview-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://kitkokito.github.io/kokitostar/" />
+    <meta name="twitter:title" content="Kokito Star - Tu marca de confianza" />
+    <meta name="twitter:description" content="Descubre Kokito Star, la mejor experiencia para ti y tu familia. Calidad y diversión garantizada." />
+    <meta name="twitter:image" content="https://kitkokito.github.io/kokitostar/preview-image.jpg" />
 </head>
 <body>
     <div class="progress-bar">
@@ -806,8 +1059,6 @@
             </div>
         </div>
     </div>
-</body>
-
 
     <div class="container">
         <div class="logo-section">
@@ -860,7 +1111,6 @@
         </div>
     </div>
 </div>
-
 
             <div class="quick-select">
                 <h3 style="margin-bottom: 15px; font-size: 1.4em;">🎯 Selección Rápida</h3>
@@ -935,8 +1185,6 @@
                     </div>
                 </div>
             </div>
-
-            
 
             <div class="payment-section">
                 <div class="payment-info">
@@ -1030,15 +1278,17 @@
             // Crear un placeholder con el emoji del motivo
             const placeholder = document.createElement('div');
             placeholder.style.cssText = `
-                width: 90px; 
-                height: 90px; 
+                width: 100px; 
+                height: 100px; 
                 display: flex; 
                 align-items: center; 
                 justify-content: center; 
                 font-size: 48px; 
-                background: rgba(255,255,255,0.1); 
-                border-radius: 8px;
-                color: white;
+                background: #ffffff; 
+                border-radius: 12px;
+                color: #E50695;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             `;
             placeholder.textContent = getEmojiForMotivo(img.alt);
             img.parentNode.appendChild(placeholder);
@@ -1105,46 +1355,75 @@
         function selectOneOfEach() {
             isOneOfEachSelected = true;
             
-            // Seleccionar uno de cada motivo
-            motivos.forEach(motivo => {
-                selectedMotivos[motivo] = 1;
-                const display = document.getElementById(`qty-display-${motivo}`);
-                if (display) display.textContent = '1';
+            // Seleccionar uno de cada motivo con efectos visuales
+            motivos.forEach((motivo, index) => {
+                setTimeout(() => {
+                    selectedMotivos[motivo] = 1;
+                    const display = document.getElementById(`qty-display-${motivo}`);
+                    const item = display.closest('.motivo-item');
+                    
+                    if (display) {
+                        display.textContent = '1';
+                        display.classList.add('animate');
+                        setTimeout(() => display.classList.remove('animate'), 400);
+                    }
+                    
+                    // Marcar como seleccionado con delay escalonado
+                    item.classList.add('selected');
+                }, index * 50); // Efecto cascada
             });
             
-            // Actualizar interfaz
-            updateCounters();
-            updateWhatsAppButton();
+            // Actualizar interfaz después de todas las animaciones
+            setTimeout(() => {
+                updateCounters();
+                updateWhatsAppButton();
+            }, motivos.length * 50 + 200);
             
             // Mostrar botón de selección personalizada y ocultar el de "uno de cada uno"
             document.getElementById('quickSelectBtn').style.display = 'none';
             document.getElementById('customSelectBtn').style.display = 'inline-block';
             
             // Ocultar la sección completa de motivos
-            document.querySelector('.section:has(#motivosGrid)').style.display = 'none';
+            setTimeout(() => {
+                document.querySelector('.section:has(#motivosGrid)').style.display = 'none';
+            }, motivos.length * 50 + 500);
             
             // Hacer scroll automático a la sección de colores
-            document.querySelector('.section:has(#coloresGrid)').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-            
-            showAlert('✅ ¡Perfecto! Kit completo seleccionado. Ahora elige tus colores de glitter ⬇️', 'success');
+            setTimeout(() => {
+                document.querySelector('.section:has(#coloresGrid)').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                showAlert('✅ ¡Perfecto! Kit completo seleccionado. Ahora elige tus colores de glitter ⬇️', 'success');
+            }, motivos.length * 50 + 800);
         }
 
         function enableCustomSelection() {
             isOneOfEachSelected = false;
             
-            // Limpiar selección
-            motivos.forEach(motivo => {
-                selectedMotivos[motivo] = 0;
-                const display = document.getElementById(`qty-display-${motivo}`);
-                if (display) display.textContent = '0';
+            // Limpiar selección con efectos visuales
+            motivos.forEach((motivo, index) => {
+                setTimeout(() => {
+                    selectedMotivos[motivo] = 0;
+                    const display = document.getElementById(`qty-display-${motivo}`);
+                    const item = display.closest('.motivo-item');
+                    
+                    if (display) {
+                        display.textContent = '0';
+                        display.classList.add('animate');
+                        setTimeout(() => display.classList.remove('animate'), 400);
+                    }
+                    
+                    // Remover selección con delay escalonado
+                    item.classList.remove('selected');
+                }, index * 30); // Efecto cascada más rápido para limpiar
             });
             
-            // Actualizar interfaz
-            updateCounters();
-            updateWhatsAppButton();
+            // Actualizar interfaz después de todas las animaciones
+            setTimeout(() => {
+                updateCounters();
+                updateWhatsAppButton();
+            }, motivos.length * 30 + 200);
             
             // Mostrar botón de "uno de cada uno" y ocultar el de selección personalizada
             document.getElementById('quickSelectBtn').style.display = 'inline-block';
@@ -1154,10 +1433,12 @@
             document.querySelector('.section:has(#motivosGrid)').style.display = 'block';
             
             // Hacer scroll a la sección de motivos
-            document.querySelector('.section:has(#motivosGrid)').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
+            setTimeout(() => {
+                document.querySelector('.section:has(#motivosGrid)').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
             
             clearAlerts();
         }
@@ -1214,7 +1495,19 @@
             const totalMotivos = getTotalMotivos();
             if (totalMotivos < MAX_MOTIVOS) {
                 selectedMotivos[motivo]++;
-                document.getElementById(`qty-display-${motivo}`).textContent = selectedMotivos[motivo];
+                const display = document.getElementById(`qty-display-${motivo}`);
+                const item = display.closest('.motivo-item');
+                
+                // Actualizar display con animación
+                display.textContent = selectedMotivos[motivo];
+                display.classList.add('animate');
+                setTimeout(() => display.classList.remove('animate'), 400);
+                
+                // Marcar item como seleccionado
+                if (selectedMotivos[motivo] > 0) {
+                    item.classList.add('selected');
+                }
+                
                 updateCounters();
                 updateWhatsAppButton();
                 clearAlerts();
@@ -1232,6 +1525,10 @@
                     }, 500);
                 }
             } else {
+                // Efecto de shake cuando se alcanza el límite
+                const alertsContainer = document.getElementById('alerts');
+                alertsContainer.style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => alertsContainer.style.animation = '', 500);
                 showAlert('⚠️ Has alcanzado el límite máximo de 30 motivos', 'warning');
             }
         }
@@ -1241,7 +1538,19 @@
             
             if (selectedMotivos[motivo] > 0) {
                 selectedMotivos[motivo]--;
-                document.getElementById(`qty-display-${motivo}`).textContent = selectedMotivos[motivo];
+                const display = document.getElementById(`qty-display-${motivo}`);
+                const item = display.closest('.motivo-item');
+                
+                // Actualizar display con animación
+                display.textContent = selectedMotivos[motivo];
+                display.classList.add('animate');
+                setTimeout(() => display.classList.remove('animate'), 400);
+                
+                // Remover selección si llegó a 0
+                if (selectedMotivos[motivo] === 0) {
+                    item.classList.remove('selected');
+                }
+                
                 updateCounters();
                 updateWhatsAppButton();
                 clearAlerts();
@@ -1427,40 +1736,6 @@
                 minute: '2-digit'
             }));
             console.log('Cliente:', datosCliente);
-            
-            // Cuando tengas tu formulario real, descomenta este código:
-            /*
-            const formData = new FormData();
-            
-            // Reemplaza estos entry.XXXXXXX con los IDs reales de tu formulario
-            formData.append('entry.XXXXXXX1', new Date().toLocaleString('es-CO', {
-                timeZone: 'America/Bogota',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit'
-            }));
-            formData.append('entry.XXXXXXX2', datosCliente.nombre);
-            formData.append('entry.XXXXXXX3', datosCliente.telefono);
-            formData.append('entry.XXXXXXX4', datosCliente.direccion);
-            formData.append('entry.XXXXXXX5', datosCliente.ciudad);
-            formData.append('entry.XXXXXXX6', datosCliente.motivos);
-            formData.append('entry.XXXXXXX7', datosCliente.totalMotivos.toString());
-            formData.append('entry.XXXXXXX8', datosCliente.colores);
-            formData.append('entry.XXXXXXX9', datosCliente.tipoSeleccion);
-            formData.append('entry.XXXXXXX10', '$155.000');
-            
-            fetch(FORM_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
-            }).then(() => {
-                console.log('Datos enviados a Google Forms exitosamente');
-            }).catch(error => {
-                console.log('Error al enviar a Google Forms:', error);
-            });
-            */
         }
 
         function prepararDatosParaSheet() {
@@ -1512,8 +1787,11 @@
                         updateProgressBar(4); // Cambiar a paso 4 "Listo"
                         updateOrderSummary();
                         setTimeout(() => {
-                            document.getElementById('orderSummary').style.display = 'block';
-                            document.getElementById('orderSummary').classList.add('fade-in');
+                            const orderSummary = document.getElementById('orderSummary');
+                            if (orderSummary) {
+                                orderSummary.style.display = 'block';
+                                orderSummary.classList.add('fade-in');
+                            }
                             setTimeout(() => {
                                 document.querySelector('.payment-section').scrollIntoView({ 
                                     behavior: 'smooth',
