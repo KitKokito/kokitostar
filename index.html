@@ -18,183 +18,94 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             min-height: 100vh;
-            padding: 20px;
-            padding-top: 100px;
+            padding: 10px;
+            padding-top: 70px;
             color: white;
         }
 
-        .progress-bar {
+        /* BARRA DE NAVEGACIÓN */
+        .kit-navigation-bar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            padding: 15px 20px;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            padding: 10px 15px;
             z-index: 1000;
-            border-bottom: 2px solid #E50695;
+            border-bottom: 3px solid #E50695;
+            box-shadow: 0 4px 20px rgba(229, 6, 149, 0.3);
         }
 
-        .progress-container {
-            max-width: 600px;
+        .kit-nav-container {
+            max-width: 1000px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 0 15px;
         }
 
-        .progress-step {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-
-        .progress-step:not(:last-child) {
-            margin-right: 20px;
-        }
-
-        .step-circle {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #666;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            transition: all 0.5s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        .step-circle.active {
-            background: #E50695;
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(229, 6, 149, 0.5);
-        }
-
-        .step-circle.completed {
-            background: #28a745;
-            animation: checkBounce 0.6s ease;
-        }
-
-        .step-circle.completed::after {
-            content: '✓';
-            font-size: 16px;
-            animation: checkAppear 0.4s ease 0.2s both;
-        }
-
-        .step-line {
-            flex: 1;
-            height: 3px;
-            background: #666;
-            margin: 0 10px;
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .step-line.active::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: linear-gradient(90deg, #E50695, #ff69b4);
-            animation: lineProgress 0.8s ease;
-        }
-
-        .step-label {
-            position: absolute;
-            top: 35px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 11px;
-            white-space: nowrap;
-            color: #ccc;
-            transition: color 0.3s ease;
-        }
-
-        .step-circle.active + .step-label,
-        .step-circle.completed + .step-label {
-            color: #E50695;
-            font-weight: bold;
-        }
-
-        @keyframes checkBounce {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1.1); }
-        }
-
-        @keyframes checkAppear {
-            0% { opacity: 0; transform: scale(0); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes lineProgress {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        @keyframes countUp {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); color: #E50695; }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideInRight {
-            0% { opacity: 0; transform: translateX(50px); }
-            100% { opacity: 1; transform: translateX(0); }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.6s ease both;
-        }
-
-        .slide-in {
-            animation: slideInRight 0.5s ease both;
-        }
-
-        .order-summary {
+        .kit-nav-btn {
             background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 30px 0;
-            border: 2px solid #E50695;
+            color: white;
+            border: 2px solid #666;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 0.9em;
+            min-width: 80px;
+            text-align: center;
         }
 
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(229, 6, 149, 0.2);
+        .kit-nav-btn:hover {
+            transform: translateY(-2px);
+            border-color: #E50695;
+            box-shadow: 0 8px 25px rgba(229, 6, 149, 0.4);
         }
 
-        .summary-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        .summary-label {
-            font-family: Arial, sans-serif;
+        .kit-nav-btn.active {
+            background: linear-gradient(135deg, #E50695, #ff69b4);
+            border-color: #E50695;
             color: white;
         }
 
-        .summary-value {
-            font-family: 'Arial Black', Arial, sans-serif;
-            color: #E50695;
-            font-weight: bold;
+        .kit-nav-btn.back-btn {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-color: #ff6b35;
+            min-width: 120px;
+        }
+
+        .kit-nav-btn.completed {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border-color: #28a745;
+        }
+
+        .kit-nav-btn.completed::after {
+            content: ' ✓';
+            font-size: 1.1em;
+        }
+
+        .kit-nav-btn.next-blink {
+            animation: nextKitBlink 2s infinite;
+        }
+
+        @keyframes nextKitBlink {
+            0%, 50% { 
+                background: linear-gradient(135deg, #ff6b35, #f7931e);
+                border-color: #ff6b35;
+                transform: translateY(-2px) scale(1.05);
+                box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6);
+            }
+            25%, 75% { 
+                background: linear-gradient(135deg, #ffcc02, #ffd700);
+                border-color: #ffcc02;
+                transform: translateY(-4px) scale(1.1);
+                box-shadow: 0 12px 30px rgba(255, 204, 2, 0.8);
+            }
         }
 
         .container {
@@ -209,7 +120,7 @@
 
         .logo-section {
             background: #000000;
-            padding: 60px 20px;
+            padding: 25px 10px;
             text-align: center;
             border-bottom: 3px solid #E50695;
             min-height: 200px;
@@ -218,124 +129,176 @@
             justify-content: center;
         }
 
-        .logo-container {
-            width: 100%;
-            max-width: 600px;
-        }
-
         .logo-image {
             width: 100%;
             height: auto;
             max-height: 180px;
             object-fit: contain;
-            border-radius: 10px;
         }
 
         .header {
             background: linear-gradient(135deg, #E50695, #ff69b4);
-            padding: 30px;
+            padding: 15px;
             text-align: center;
             color: white;
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 1.6em;
+            margin-bottom: 5px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
         .content {
-            padding: 30px;
+            padding: 15px;
             color: white;
         }
 
-        .instructions {
-            background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+        /* SELECCIÓN DE CANTIDAD */
+        .kit-quantity-section {
+            background: linear-gradient(135deg, #E50695, #ff69b4);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px 0;
+            text-align: center;
+            border: 3px solid #E50695;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .quantity-btn {
+            background: #000000;
+            color: #E50695;
+            border: 2px solid #E50695;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #E50695;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .quantity-btn:disabled {
+            background: #666;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .kit-quantity-display {
+            background: #ffffff;
+            color: #E50695;
+            border: 3px solid #E50695;
+            border-radius: 15px;
+            padding: 10px 20px;
+            font-size: 2em;
+            font-weight: bold;
+            min-width: 80px;
+        }
+
+        .kit-price-info {
+            background: rgba(0,0,0,0.3);
             border-radius: 10px;
             padding: 15px;
+            margin-top: 15px;
+        }
+
+        .price-breakdown {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .total-price {
+            border-top: 2px solid rgba(255,255,255,0.3);
+            padding-top: 10px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .confirm-quantity-btn {
+            background: #000000;
+            color: #E50695;
+            border: 3px solid #E50695;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .confirm-quantity-btn:hover {
+            background: #E50695;
+            color: white;
+        }
+
+        /* INFORMACIÓN DEL KIT ACTUAL */
+        .current-kit-info {
+            text-align: center;
+            font-size: 1.3em;
+            color: #E50695;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+            border-radius: 15px;
+            border: 2px solid #E50695;
+        }
+
+        /* INSTRUCCIONES */
+        .instructions {
+            background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+            border-radius: 15px;
+            padding: 20px;
             margin-bottom: 20px;
             border: 2px solid #E50695;
         }
 
         .instructions h3 {
             color: #E50695;
-            font-size: 1.1em;
-            margin-bottom: 10px;
+            font-size: 1.3em;
+            margin-bottom: 15px;
             text-align: center;
         }
 
         .step {
             display: flex;
             align-items: center;
-            margin-bottom: 8px;
-            padding: 6px;
+            margin-bottom: 10px;
+            padding: 8px;
             background: rgba(229, 6, 149, 0.1);
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
         .step-number {
             background: #E50695;
             color: white;
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 0.8em;
-            margin-right: 10px;
-            flex-shrink: 0;
+            margin-right: 15px;
         }
 
-        .step-text {
-            flex: 1;
-            font-size: 0.85em;
-            line-height: 1.3;
-        }
-
-        .quick-select {
-            background: linear-gradient(135deg, #E50695, #ff69b4);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            text-align: center;
-            border: 2px solid #E50695;
-        }
-
-        .quick-select-btn {
-            background: #000000;
-            color: #E50695;
-            border: 2px solid #E50695;
-            padding: 15px 30px;
-            font-size: 1.3em;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-block;
-            margin: 10px;
-        }
-
-        .quick-select-btn:hover {
-            background: #E50695;
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .quick-select-btn:disabled {
-            background: #666;
-            color: #999;
-            border-color: #666;
-            cursor: not-allowed;
-            transform: none;
-        }
-
+        /* CONTADORES */
         .counters {
             display: flex;
             justify-content: space-around;
@@ -354,11 +317,6 @@
             font-size: 2.5em;
             font-weight: bold;
             display: block;
-            transition: all 0.3s ease;
-        }
-
-        .counter-number.animate {
-            animation: countUp 0.5s ease;
         }
 
         .counter-label {
@@ -366,343 +324,205 @@
             margin-top: 5px;
         }
 
-        .section {
-            margin-bottom: 40px;
-        }
-
         .section-title {
-            font-family: 'Arial Black', Arial, sans-serif;
-            font-weight: 900;
             font-size: 1.8em;
             color: white;
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 3px solid #E50695;
+            font-weight: bold;
         }
 
+        /* GRID DE MOTIVOS */
         .motivos-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            gap: 15px;
             margin-bottom: 30px;
-            padding: 0 5px;
         }
 
         .motivo-item {
             background: linear-gradient(145deg, rgba(229, 6, 149, 0.1), rgba(255, 105, 180, 0.05));
-            backdrop-filter: blur(10px);
             border: 2px solid rgba(229, 6, 149, 0.3);
             border-radius: 20px;
             padding: 15px;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.3s ease;
             color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 12px;
-            min-height: auto;
-            width: 100%;
-            box-sizing: border-box;
-            position: relative;
-            overflow: hidden;
+            gap: 10px;
             cursor: pointer;
         }
 
-        .motivo-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .motivo-item:hover::before {
-            left: 100%;
-        }
-
         .motivo-item:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-5px);
             border-color: #E50695;
-            background: linear-gradient(145deg, rgba(229, 6, 149, 0.2), rgba(255, 105, 180, 0.1));
-            box-shadow: 
-                0 15px 35px rgba(229, 6, 149, 0.3),
-                0 0 0 1px rgba(229, 6, 149, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(229, 6, 149, 0.3);
         }
 
         .motivo-item.selected {
             border-color: #E50695;
             background: linear-gradient(145deg, rgba(229, 6, 149, 0.25), rgba(255, 105, 180, 0.15));
-            box-shadow: 
-                0 8px 25px rgba(229, 6, 149, 0.4),
-                0 0 0 2px rgba(229, 6, 149, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transform: translateY(-4px);
-        }
-
-        .motivo-item.disabled {
-            opacity: 0.4;
-            pointer-events: none;
-            filter: grayscale(100%);
+            box-shadow: 0 8px 15px rgba(229, 6, 149, 0.4);
         }
 
         .motivo-image-container {
             background: #ffffff;
             border-radius: 50%;
-            padding: 12px;
+            padding: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 120px;
-            min-height: 120px;
-            flex-shrink: 0;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .motivo-image-container::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #E50695, #ff69b4, #ff1493, #E50695);
-            border-radius: 50%;
-            z-index: -1;
-            animation: rotate 4s linear infinite;
-        }
-
-        .motivo-image-container:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 
-                0 0 30px rgba(229, 6, 149, 0.6),
-                0 0 50px rgba(229, 6, 149, 0.3),
-                0 8px 25px rgba(0,0,0,0.15);
-            animation-play-state: paused;
+            width: 100px;
+            height: 100px;
         }
 
         .motivo-image {
-            width: 100px;
-            height: 100px;
+            width: 70px;
+            height: 70px;
             object-fit: contain;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
-            z-index: 2;
-            position: relative;
-        }
-
-        /* Máscara blanca SOLO para hover/touch temporal - NO para elementos seleccionados */
-        .motivo-image-container:hover:not(.touching) .motivo-image {
-            transform: scale(1.1);
-            filter: 
-                brightness(0) 
-                invert(1) 
-                drop-shadow(0 4px 12px rgba(0,0,0,0.3));
-        }
-
-        /* Estado normal para elementos seleccionados - SIN máscara */
-        .motivo-item.selected .motivo-image {
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)) brightness(1.05);
-        }
-
-        .motivo-item.selected .motivo-image-container:hover .motivo-image {
-            transform: scale(1.1);
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)) brightness(1.1);
-        }
-
-        /* Efectos especiales para touch en móviles */
-        @media (hover: none) and (pointer: coarse) {
-            .motivo-image-container:active {
-                transform: scale(1.05);
-                transition: all 0.1s ease;
-            }
-            
-            /* Máscara blanca temporal para touch SOLO si no está seleccionado */
-            .motivo-image-container:active:not(.selected-touch) .motivo-image {
-                transform: scale(1.05);
-                filter: 
-                    brightness(0) 
-                    invert(1) 
-                    drop-shadow(0 2px 8px rgba(0,0,0,0.2));
-                transition: all 0.1s ease;
-            }
-            
-            /* Touch en elementos seleccionados - SIN máscara */
-            .motivo-item.selected .motivo-image-container:active .motivo-image {
-                transform: scale(1.05);
-                filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)) brightness(1.1);
-                transition: all 0.1s ease;
-            }
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .motivo-content {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            align-items: center;
         }
 
         .motivo-name {
-            font-family: Arial, sans-serif;
-            font-weight: normal;
-            color: white;
             font-size: 1em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            text-align: center;
-            overflow-wrap: break-word;
-            line-height: 1.2;
-            margin-bottom: 4px;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
 
         .quantity-controls {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
-            position: relative;
         }
 
         .btn-quantity {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            backdrop-filter: blur(10px);
+            background: rgba(229, 6, 149, 0.2);
             color: #E50695;
             border: 2px solid rgba(229, 6, 149, 0.3);
-            width: 36px;
-            height: 36px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-quantity::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(229, 6, 149, 0.2), transparent);
-            border-radius: 50%;
             transition: all 0.3s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        .btn-quantity:hover::before {
-            width: 100%;
-            height: 100%;
         }
 
         .btn-quantity:hover {
-            background: linear-gradient(145deg, #E50695, #ff69b4);
+            background: #E50695;
             color: white;
             transform: scale(1.1);
-            border-color: #E50695;
-            box-shadow: 
-                0 0 20px rgba(229, 6, 149, 0.5),
-                0 4px 15px rgba(229, 6, 149, 0.3);
-        }
-
-        .btn-quantity:active {
-            transform: scale(0.95);
-        }
-
-        .btn-quantity:disabled {
-            background: rgba(102, 102, 102, 0.3);
-            color: #666;
-            border-color: rgba(102, 102, 102, 0.3);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
         }
 
         .quantity-display {
-            background: linear-gradient(145deg, rgba(229, 6, 149, 0.2), rgba(255, 105, 180, 0.1));
-            backdrop-filter: blur(10px);
+            background: rgba(229, 6, 149, 0.2);
             color: white;
             border: 2px solid rgba(229, 6, 149, 0.4);
+            border-radius: 8px;
+            width: 40px;
+            height: 35px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            outline: none;
+        }
+
+        /* MOTIVOS ESPECIALES */
+        .special-motivos-section {
+            background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #ff6b35;
+        }
+
+        .special-motivos-title {
+            color: #ff6b35;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .special-motivos-info {
+            background: rgba(255, 107, 53, 0.1);
             border-radius: 12px;
-            width: 45px;
-            height: 36px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #ccc;
+            text-align: center;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .special-motivo-item {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #ff6b35;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .special-motivo-name-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ff6b35;
+            border-radius: 8px;
+            background: #000;
+            color: white;
+            font-size: 1em;
+        }
+
+        .special-motivo-name-input::placeholder {
+            color: #999;
+        }
+
+        .special-motivo-quantity-input {
+            width: 80px;
+            padding: 12px;
+            border: 2px solid #ff6b35;
+            border-radius: 8px;
+            background: #000;
+            color: white;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .btn-remove-special {
+            background: #dc3545;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2em;
+        }
+
+        .btn-add-special {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
             font-weight: bold;
-            font-family: 'Arial Black', Arial, sans-serif;
-            position: relative;
-            transition: all 0.3s ease;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .quantity-display.animate {
-            animation: pulse 0.4s ease;
-            background: linear-gradient(145deg, #E50695, #ff69b4);
-            border-color: #E50695;
-            box-shadow: 
-                0 0 15px rgba(229, 6, 149, 0.6),
-                inset 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes shake {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(0); }
-            10%, 30%, 70%, 90% { transform: translateX(-5px); }
-            40%, 60% { transform: translateX(5px); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-3px); }
-        }
-
-        /* Efecto de flotar para elementos seleccionados */
-        .motivo-item.selected {
-            animation: float 2s ease-in-out infinite;
-        }
-
-        /* Efecto de brillo para los contadores */
-        .counter-number.animate {
-            animation: countUp 0.5s ease, glow 0.8s ease;
-        }
-
-        @keyframes glow {
-            0% { text-shadow: 0 0 5px rgba(229, 6, 149, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(229, 6, 149, 0.8), 0 0 30px rgba(229, 6, 149, 0.6); }
-            100% { text-shadow: 0 0 5px rgba(229, 6, 149, 0.5); }
-        }
-
+        /* COLORES */
         .colores-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -717,7 +537,6 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            user-select: none;
             color: white;
         }
 
@@ -727,10 +546,7 @@
         }
 
         .color-item.selected {
-            border-color: #E50695;
             background: linear-gradient(135deg, #E50695, #ff69b4);
-            color: white;
-            transform: translateY(-2px);
         }
 
         .color-emoji {
@@ -738,6 +554,7 @@
             margin-bottom: 5px;
         }
 
+        /* FORMULARIO DE ENVÍO */
         .shipping-form {
             background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
             border-radius: 15px;
@@ -763,11 +580,10 @@
         }
 
         .form-label {
-            font-family: Arial, sans-serif;
-            font-weight: normal;
             margin-bottom: 8px;
             color: white;
             font-size: 1.1em;
+            font-weight: bold;
         }
 
         .form-input {
@@ -775,52 +591,42 @@
             border: 2px solid #E50695;
             border-radius: 8px;
             font-size: 1em;
-            transition: all 0.3s ease;
             background: #000;
             color: white;
         }
 
-        .form-input:focus {
-            outline: none;
-            border-color: #E50695;
-            box-shadow: 0 0 0 3px rgba(229, 6, 149, 0.1);
+        .form-input::placeholder {
+            color: #999;
         }
 
+        /* PAGO */
         .payment-section {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 20px;
-            align-items: center;
             background: linear-gradient(135deg, #E50695, #ff69b4);
             color: white;
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 25px;
             margin: 30px 0;
-            border: 2px solid #E50695;
+            text-align: center;
         }
 
-        .payment-info h3 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
-
-        .payment-details {
-            font-family: Arial, sans-serif;
-            font-weight: normal;
-            font-size: 1.2em;
-            line-height: 1.6;
+        .payment-amount-display {
+            background: white;
+            color: #E50695;
+            padding: 15px 25px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 2em;
+            font-weight: bold;
+            margin: 15px 0;
         }
 
         .qr-container {
-            width: 200px;
-            height: 200px;
+            width: 160px;
+            height: 160px;
             border: 3px solid white;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 12px;
             background: white;
-            flex-shrink: 0;
+            margin: 20px auto;
             overflow: hidden;
         }
 
@@ -834,26 +640,25 @@
             background: linear-gradient(135deg, #25d366, #20ba5e);
             color: white;
             border: none;
-            padding: 20px 40px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .next-kit-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 15px 40px;
             font-size: 1.3em;
+            font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
             display: block;
-            margin: 30px auto 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-        }
-
-        .whatsapp-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-        }
-
-        .whatsapp-btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            margin: 20px auto;
         }
 
         .alert {
@@ -863,219 +668,33 @@
             font-weight: bold;
         }
 
-        .alert-warning {
-            background: #ff8c00;
-            border: 1px solid #ff7f00;
-            color: white;
-        }
+        .alert-success { background: #28a745; color: white; }
+        .alert-warning { background: #ff8c00; color: white; }
+        .alert-danger { background: #dc3545; color: white; }
 
-        .alert-danger {
-            background: #dc3545;
-            border: 1px solid #c82333;
-            color: white;
-        }
-
-        .alert-success {
-            background: #28a745;
-            border: 1px solid #1e7e34;
-            color: white;
-        }
-
-        /* MEDIA QUERIES ACTUALIZADAS PARA DISPOSITIVOS MÓVILES */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .counters {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            /* Mantener 3 columnas pero ajustar espaciado en tablets */
-            .motivos-grid {
-                gap: 10px;
-            }
-            
-            .colores-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .quick-select-btn {
-                display: block;
-                width: 100%;
-                margin: 10px 0;
-            }
-
-            .payment-section {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .qr-container {
-                margin: 0 auto;
-            }
+            .motivos-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .colores-grid { grid-template-columns: repeat(2, 1fr); }
+            .form-row { grid-template-columns: 1fr; }
+            .counters { flex-direction: column; gap: 15px; }
+            .special-motivo-item { flex-direction: column; gap: 10px; }
         }
 
-        /* MEDIA QUERY PRINCIPAL PARA MÓVILES - AJUSTES MENORES */
-        @media (max-width: 600px) {
-            /* AJUSTAR ESPACIADO EN MÓVILES PARA 3 COLUMNAS */
-            .motivos-grid {
-                gap: 6px;
-                padding: 0;
-            }
-
-            /* AJUSTAR TAMAÑOS PARA MÓVILES */
-            .motivo-item {
-                padding: 8px;
-                gap: 6px;
-                border-radius: 15px;
-            }
-
-            /* IMÁGENES AJUSTADAS PARA MÓVILES */
-            .motivo-image-container {
-                min-width: 70px;
-                min-height: 70px;
-                padding: 6px;
-            }
-
-            .motivo-image {
-                width: 60px;
-                height: 60px;
-            }
-
-            .motivo-name {
-                font-size: 0.85em;
-            }
-
-            /* CONTROLES DE CANTIDAD MÁS COMPACTOS */
-            .quantity-controls {
-                gap: 6px;
-            }
-
-            .btn-quantity {
-                width: 30px;
-                height: 30px;
-                font-size: 16px;
-            }
-
-            .quantity-display {
-                width: 38px;
-                height: 30px;
-                font-size: 1em;
-                border-radius: 8px;
-            }
-
-            /* AJUSTES ADICIONALES PARA PANTALLAS MUY PEQUEÑAS */
-            .section-title {
-                font-size: 1.4em;
-            }
-
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .header p {
-                font-size: 1em;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            .counters {
-                padding: 15px;
-            }
-
-            .counter-number {
-                font-size: 2em;
-            }
-
-            .counter-label {
-                font-size: 0.9em;
-            }
-        }
-
-        /* MEDIA QUERY PARA PANTALLAS MUY PEQUEÑAS */
-        @media (max-width: 400px) {
-            .motivo-image-container {
-                min-width: 60px;
-                min-height: 60px;
-                padding: 4px;
-            }
-
-            .motivo-image {
-                width: 50px;
-                height: 50px;
-            }
-
-            .motivo-name {
-                font-size: 0.75em;
-            }
-
-            .btn-quantity {
-                width: 26px;
-                height: 26px;
-                font-size: 14px;
-            }
-
-            .quantity-display {
-                width: 32px;
-                height: 26px;
-                font-size: 0.9em;
-                border-radius: 6px;
-            }
-
-            .quantity-controls {
-                gap: 4px;
-            }
+        @media (max-width: 480px) {
+            .motivos-grid { grid-template-columns: 1fr; }
+            .quantity-selector { flex-direction: column; gap: 10px; }
         }
     </style>
-    
-    <!-- Meta tags para vista previa -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://kitkokito.github.io/kokitostar/" />
-    <meta property="og:title" content="Kokito Star - Tu marca de confianza" />
-    <meta property="og:description" content="Descubre Kokito Star, la mejor experiencia para ti y tu familia. Calidad y diversión garantizada." />
-    <meta property="og:image" content="https://kitkokito.github.io/kokitostar/preview-image.jpg" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://kitkokito.github.io/kokitostar/" />
-    <meta name="twitter:title" content="Kokito Star - Tu marca de confianza" />
-    <meta name="twitter:description" content="Descubre Kokito Star, la mejor experiencia para ti y tu familia. Calidad y diversión garantizada." />
-    <meta name="twitter:image" content="https://kitkokito.github.io/kokitostar/preview-image.jpg" />
 </head>
 <body>
-    <div class="progress-bar">
-        <div class="progress-container">
-            <div class="progress-step">
-                <div class="step-circle active" id="step1">1</div>
-                <div class="step-label">Motivos</div>
-                <div class="step-line" id="line1"></div>
-            </div>
-            <div class="progress-step">
-                <div class="step-circle" id="step2">2</div>
-                <div class="step-label">Colores</div>
-                <div class="step-line" id="line2"></div>
-            </div>
-            <div class="progress-step">
-                <div class="step-circle" id="step3">3</div>
-                <div class="step-label">Datos</div>
-                <div class="step-line" id="line3"></div>
-            </div>
-            <div class="progress-step">
-                <div class="step-circle" id="step4">4</div>
-                <div class="step-label">Listo</div>
-            </div>
-        </div>
+    <div class="kit-navigation-bar" id="kitNavigationBar" style="display: none;">
+        <div class="kit-nav-container" id="kitNavContainer"></div>
     </div>
 
     <div class="container">
         <div class="logo-section">
-            <div class="logo-container">
-                <img id="logoImage" src="motivos/LOGO_KOKITO.png" alt="Kokito Star Logo" class="logo-image">
-            </div>
+            <img src="motivos/LOGO_KOKITO.png" alt="Kokito Star Logo" class="logo-image">
         </div>
 
         <div class="header">
@@ -1084,148 +703,185 @@
         </div>
 
         <div class="content">
-           <div class="instructions">
-    <h3>📋 ¿Cómo funciona? - Paso a paso</h3>
+            <!-- SELECCIÓN DE CANTIDAD -->
+            <div class="kit-quantity-section" id="kitQuantitySection">
+                <h2>🎯 ¿Cuántos kits quieres?</h2>
+                <p>Selecciona la cantidad de kits que deseas personalizar</p>
+                
+                <div class="quantity-selector">
+                    <button class="quantity-btn" id="decreaseKitsBtn">−</button>
+                    <div class="kit-quantity-display" id="kitQuantityDisplay">1</div>
+                    <button class="quantity-btn" id="increaseKitsBtn">+</button>
+                </div>
 
-    <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-text">
-            <strong>Elige tus motivos:</strong> Selecciona "Uno de cada uno" para obtener los 30 diseños, o elige tus favoritos hasta completar 30.
-        </div>
-    </div>
+                <div class="kit-price-info">
+                    <div class="price-breakdown">
+                        <span id="kitsLabel">1 Kit:</span>
+                        <span id="kitsPrice">$145.000</span>
+                    </div>
+                    <div class="price-breakdown">
+                        <span>Domicilio:</span>
+                        <span>$10.000</span>
+                    </div>
+                    <div class="price-breakdown total-price">
+                        <span>Total:</span>
+                        <span id="totalPrice">$155.000</span>
+                    </div>
+                </div>
 
-    <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-text">
-            <strong>Selecciona tus colores:</strong> Escoge hasta 6 colores de glitter para tus tatuajes.
-        </div>
-    </div>
-
-    <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-text">
-            <strong>Completa tus datos:</strong> Llena el formulario con tu nombre, dirección, teléfono y ciudad.
-        </div>
-    </div>
-
-    <div class="step">
-        <div class="step-number">4</div>
-        <div class="step-text">
-            <strong>Revisa y paga:</strong> Verifica el resumen de tu pedido y realiza el pago con los datos proporcionados.
-        </div>
-    </div>
-
-    <div class="step">
-        <div class="step-number">5</div>
-        <div class="step-text">
-            <strong>Confirma por WhatsApp:</strong> Haz clic en el botón de WhatsApp para enviar tu pedido y confirmar el pago.
-        </div>
-    </div>
-</div>
-
-            <div class="quick-select">
-                <h3 style="margin-bottom: 15px; font-size: 1.4em;">🎯 Selección Rápida</h3>
-                <p style="margin-bottom: 20px;">¿Quieres uno de cada diseño? ¡Selecciona esta opción!</p>
-                <button class="quick-select-btn" id="quickSelectBtn" onclick="selectOneOfEach()">
-                    🎨 UNO DE CADA UNO (30 motivos)
-                </button>
-                <button class="quick-select-btn" id="customSelectBtn" onclick="enableCustomSelection()" style="display: none;">
-                    ✏️ Selección Personalizada
+                <button class="confirm-quantity-btn" id="confirmQuantityBtn">
+                    ✅ Confirmar y Personalizar Kits
                 </button>
             </div>
 
-            <div class="counters">
+            <!-- INFORMACIÓN DEL KIT ACTUAL -->
+            <div class="current-kit-info" id="currentKitInfo" style="display: none;">
+                Personalizando Kit 1 de 1
+            </div>
+
+            <!-- INSTRUCCIONES -->
+            <div class="instructions" id="instructionsSection" style="display: none;">
+                <h3>📋 ¿Cómo funciona?</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>Selecciona la cantidad de kits que quieres</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>Elige 30 motivos para cada kit (regulares + especiales)</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>Selecciona 6 colores de glitter por kit</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div>Completa tu información de envío</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div>Revisa tu pedido y realiza el pago</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div>Envía tu pedido por WhatsApp</div>
+                </div>
+            </div>
+
+            <!-- CONTADORES -->
+            <div class="counters" id="countersSection" style="display: none;">
                 <div class="counter">
                     <span class="counter-number" id="totalMotivos">0</span>
-                    <span class="counter-label">Motivos seleccionados / 30</span>
+                    <span class="counter-label">Motivos / 30</span>
                 </div>
                 <div class="counter">
                     <span class="counter-number" id="totalColores">0</span>
-                    <span class="counter-label">Colores seleccionados / 6</span>
+                    <span class="counter-label">Colores / 6</span>
                 </div>
             </div>
 
             <div id="alerts"></div>
 
-            <div class="section">
-                <h2 class="section-title">🎨 Selecciona tus Motivos <span style="font-family: Arial, sans-serif; font-weight: normal;">(máximo 30)</span></h2>
+            <!-- SECCIÓN DE MOTIVOS -->
+            <div class="section" id="motivosSection" style="display: none;">
+                <h2 class="section-title">🎨 Motivos para <span id="motivosSectionTitle">Kit 1</span></h2>
                 <div class="motivos-grid" id="motivosGrid"></div>
+                
+                <!-- MOTIVOS ESPECIALES -->
+                <div class="special-motivos-section">
+                    <h3 class="special-motivos-title">⭐ Motivos Especiales ⭐</h3>
+                    <div class="special-motivos-info">
+                        💡 Agrega motivos especiales como Kuromi, My Melody, Stitch, Labubu, etc.
+                    </div>
+                    <div id="specialMotivosContainer"></div>
+                    <button class="btn-add-special" onclick="agregarMotivoEspecial()">
+                        ➕ Agregar Motivo Especial
+                    </button>
+                </div>
+                
+                <button class="next-kit-btn" id="nextKitBtn" style="display: none;">
+                    ➡️ Continuar
+                </button>
             </div>
 
-            <div class="section">
-                <h2 class="section-title">🌈 Selecciona tus Colores de Glitter <span style="font-family: Arial, sans-serif; font-weight: normal;">(máximo 6)</span></h2>
+            <!-- SECCIÓN DE COLORES -->
+            <div class="section" id="coloresSection" style="display: none;">
+                <h2 class="section-title">🌈 Colores para <span id="coloresSectionTitle">Kit 1</span></h2>
                 <div class="colores-grid" id="coloresGrid"></div>
             </div>
 
-            <div class="section">
+            <!-- SECCIÓN DE ENVÍO -->
+            <div class="section" id="shippingSection" style="display: none;">
                 <h2 class="section-title">📦 Información de Envío</h2>
                 <div class="shipping-form">
                     <div class="form-row">
                         <div class="form-group">
-                            <label class="form-label"><span style="font-family: 'Arial Black', Arial, sans-serif; font-weight: 900;">🤩 Nombre completo</span></label>
-                            <input type="text" class="form-input" id="nombreCompleto" placeholder="Ingresa tu nombre completo" required>
+                            <label class="form-label">🤩 Nombre completo</label>
+                            <input type="text" class="form-input" id="nombreCompleto" placeholder="Tu nombre completo" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label"><span style="font-family: 'Arial Black', Arial, sans-serif; font-weight: 900;">☎️ Teléfono</span></label>
-                            <input type="tel" class="form-input" id="telefono" placeholder="Ej: 3001234567" required>
+                            <label class="form-label">☎️ Teléfono</label>
+                            <input type="tel" class="form-input" id="telefono" placeholder="3001234567" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group full-width">
-                            <label class="form-label">
-                                <span style="font-family: 'Arial Black', Arial, sans-serif; font-weight: 900;">📪 Dirección</span>
-                                <span style="font-family: Arial, sans-serif; font-weight: normal;"> (con barrio y detalles)</span>
-                            </label>
-                            <input type="text" class="form-input" id="direccion" placeholder="Ej: Calle 123 #45-67, Barrio Centro" required>
+                            <label class="form-label">📪 Dirección completa</label>
+                            <input type="text" class="form-input" id="direccion" placeholder="Calle 123 #45-67, Barrio Centro" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label class="form-label">
-                                <span style="font-family: 'Arial Black', Arial, sans-serif; font-weight: 900;">🏢 Unidad o Edificio</span>
-                                <span style="font-family: Arial, sans-serif; font-weight: normal;"> (opcional)</span>
-                            </label>
-                            <input type="text" class="form-input" id="unidad" placeholder="Ej: Torre A, Apto 501">
+                            <label class="form-label">🏢 Unidad/Edificio (opcional)</label>
+                            <input type="text" class="form-input" id="unidad" placeholder="Torre A, Apto 501">
                         </div>
                         <div class="form-group">
-                            <label class="form-label"><span style="font-family: 'Arial Black', Arial, sans-serif; font-weight: 900;">🌇 Ciudad</span></label>
-                            <input type="text" class="form-input" id="ciudad" placeholder="Ej: Medellín" required>
+                            <label class="form-label">🌇 Ciudad</label>
+                            <input type="text" class="form-input" id="ciudad" placeholder="Medellín" required>
                         </div>
                     </div>
                 </div>
+
+                <div id="orderSummary"></div>
             </div>
 
-            <div class="payment-section">
-                <div class="payment-info">
-                    <h3>💳 Información de Pago</h3>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <div style="background: white; color: black; padding: 15px 30px; border-radius: 50px; display: inline-block; font-family: 'Arial Black', Arial, sans-serif; font-size: 2em; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: 3px solid #E50695;">
-                            💰 $155.000
-                        </div>
-                        <div style="font-size: 1.1em; color: white; opacity: 0.9; margin-top: 10px;">
-                            (Domicilio incluido en toda Colombia)
-                        </div>
-                    </div>
-                    <div class="payment-details">
-                        📍 Realiza tu pago a Bancolombia:<br>
-                        💰 Ahorros: 019-512646-91<br>
-                        👤 Olga Lucía Arango
-                    </div>
+            <!-- SECCIÓN DE PAGO -->
+            <div class="payment-section" id="paymentSection" style="display: none;">
+                <h3>💳 Información de Pago</h3>
+                
+                <div class="payment-amount-display" id="paymentAmount">💰 $155.000</div>
+                
+                <p>(Domicilio incluido en toda Colombia)</p>
+                
+                <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 15px; margin: 20px 0;">
+                    📍 Realiza tu pago a Bancolombia:<br>
+                    💰 Ahorros: 019-512646-91<br>
+                    👤 Olga Lucía Arango
                 </div>
+                
                 <div class="qr-container">
                     <img src="motivos/QR_KITS.png" alt="QR de Pago" class="qr-image">
                 </div>
-            </div>
 
-            <button class="whatsapp-btn" id="whatsappBtn" onclick="enviarWhatsApp()">
-                📱 Enviar Pedido por WhatsApp
-            </button>
+                <button class="whatsapp-btn" onclick="enviarWhatsApp()">
+                    📱 Enviar Pedido por WhatsApp
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
+        // Variables globales
+        let totalKits = 1;
+        let currentKit = 1;
+        let kitsData = {};
+        const MAX_MOTIVOS = 30;
+        const MAX_COLORES = 6;
+        const KIT_PRICE = 145000;
+        const SHIPPING_PRICE = 10000;
+
         const motivos = [
             'Águila', 'Araña', 'Arcoíris', 'Barbie', 'Batman', 'Beso', 
             'Caballo', 'Carita feliz', 'Corazón Karol G', 'Delfín', 
@@ -1249,7 +905,6 @@
             {name: 'Multicolor', emoji: '🌈'}
         ];
 
-        // Mapeo de imágenes de los motivos - Rutas locales
         const motivoImages = {
             'Águila': 'motivos/K_Aguila.png',
             'Araña': 'motivos/K_Arana.png',
@@ -1283,177 +938,264 @@
             'Unicornio': 'motivos/K_Unicornio.png'
         };
 
-        // Función para manejar errores de carga de imágenes
-        function handleImageError(img) {
-            img.style.display = 'none';
-            // Crear un placeholder con el emoji del motivo
-            const placeholder = document.createElement('div');
-            placeholder.style.cssText = `
-                width: 100px; 
-                height: 100px; 
-                display: flex; 
-                align-items: center; 
-                justify-content: center; 
-                font-size: 48px; 
-                background: #ffffff; 
-                border-radius: 12px;
-                color: #E50695;
-                transition: all 0.3s ease;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            `;
-            placeholder.textContent = getEmojiForMotivo(img.alt);
-            img.parentNode.appendChild(placeholder);
+        // FUNCIONES PRINCIPALES
+        function initializeApp() {
+            updateKitQuantityDisplay();
+            updatePriceDisplay();
         }
 
-        // Función para obtener emoji según el motivo
-        function getEmojiForMotivo(motivo) {
-            const emojis = {
-                'Águila': '🦅', 'Araña': '🕷️', 'Arcoíris': '🌈', 'Barbie': '💄', 'Batman': '🦇',
-                'Beso': '💋', 'Caballo': '🐎', 'Carita feliz': '😊', 'Corazón Karol G': '💖',
-                'Delfín': '🐬', 'Dinosaurio': '🦕', 'Dragón': '🐲', 'Elefante': '🐘',
-                'Flash': '⚡', 'Gato': '🐱', 'Hongo': '🍄', 'Huella': '🐾', 'León': '🦁',
-                'Mario': '🎮', 'Mariposa': '🦋', 'Medellín': '🏙️', 'Nacional': '⚽',
-                'Notas musicales': '🎵', 'Pirata': '☠️', 'Planeta': '🪐', 'Pluma': '🪶',
-                'Pony': '🦄', 'Sirenita': '🧜‍♀️', 'Sonic': '💨', 'Unicornio': '🦄'
-            };
-            return emojis[motivo] || '🎨';
-        }
-
-        let selectedMotivos = {};
-        let selectedColores = [];
-        let isOneOfEachSelected = false;
-        let currentStep = 1;
-        const MAX_MOTIVOS = 30;
-        const MAX_COLORES = 6;
-
-        function updateProgressBar(step) {
-            currentStep = step;
-            
-            // Actualizar círculos (ahora hasta 4 pasos)
-            for (let i = 1; i <= 4; i++) {
-                const circle = document.getElementById(`step${i}`);
-                const line = document.getElementById(`line${i}`);
-                
-                if (i < step) {
-                    circle.className = 'step-circle completed';
-                    if (line) line.className = 'step-line active';
-                } else if (i === step) {
-                    circle.className = 'step-circle active';
-                } else {
-                    circle.className = 'step-circle';
-                    if (line) line.className = 'step-line';
-                }
+        function changeKitQuantity(change) {
+            const newQuantity = totalKits + change;
+            if (newQuantity >= 1 && newQuantity <= 10) {
+                totalKits = newQuantity;
+                updateKitQuantityDisplay();
+                updatePriceDisplay();
             }
         }
 
-        function animateCounter(elementId, newValue) {
-            const element = document.getElementById(elementId);
-            element.classList.add('animate');
-            element.textContent = newValue;
+        function updateKitQuantityDisplay() {
+            document.getElementById('kitQuantityDisplay').textContent = totalKits;
+            document.getElementById('decreaseKitsBtn').disabled = totalKits <= 1;
+            document.getElementById('increaseKitsBtn').disabled = totalKits >= 10;
+        }
+
+        function updatePriceDisplay() {
+            const kitsTotal = totalKits * KIT_PRICE;
+            const total = kitsTotal + SHIPPING_PRICE;
             
+            document.getElementById('kitsLabel').textContent = `${totalKits} Kit${totalKits > 1 ? 's' : ''}:`;
+            document.getElementById('kitsPrice').textContent = `${kitsTotal.toLocaleString()}`;
+            document.getElementById('totalPrice').textContent = `${total.toLocaleString()}`;
+        }
+
+        function confirmKitQuantity() {
+            // Inicializar datos para cada kit
+            kitsData = {};
+            for (let i = 1; i <= totalKits; i++) {
+                kitsData[i] = {
+                    motivos: {},
+                    motivosEspeciales: [],
+                    colores: []
+                };
+                motivos.forEach(motivo => {
+                    kitsData[i].motivos[motivo] = 0;
+                });
+            }
+
+            // Mostrar secciones
+            document.getElementById('kitQuantitySection').style.display = 'none';
+            document.getElementById('kitNavigationBar').style.display = 'block';
+            document.getElementById('currentKitInfo').style.display = 'block';
+            document.getElementById('instructionsSection').style.display = 'block';
+            document.getElementById('countersSection').style.display = 'block';
+            document.getElementById('motivosSection').style.display = 'block';
+
+            // Configurar navegación
+            createKitNavigation();
+            currentKit = 1;
+            updateCurrentKitDisplay();
+            createMotivosGrid();
+            renderMotivosEspeciales();
+            createColoresGrid();
+            updateCounters();
+
+            // NAVEGACIÓN AUTOMÁTICA: Ir a instrucciones
             setTimeout(() => {
-                element.classList.remove('animate');
+                document.getElementById('instructionsSection').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                showAlert('📋 ¡Perfecto! Revisa las instrucciones y comienza a personalizar', 'success');
             }, 500);
         }
 
-        function initializeApp() {
-            createMotivosGrid();
-            createColoresGrid();
-            updateCounters();
-            updateWhatsAppButton();
+        function createKitNavigation() {
+            const navContainer = document.getElementById('kitNavContainer');
+            navContainer.innerHTML = '';
+
+            // Botón de regreso
+            const backBtn = document.createElement('div');
+            backBtn.className = 'kit-nav-btn back-btn';
+            backBtn.innerHTML = '🔙 Cambiar Cantidad';
+            backBtn.onclick = () => location.reload();
+            navContainer.appendChild(backBtn);
+
+            // Separador
+            const separator = document.createElement('div');
+            separator.style.cssText = 'width: 2px; height: 30px; background: #E50695; margin: 0 10px;';
+            navContainer.appendChild(separator);
+
+            // Botones de kits
+            for (let i = 1; i <= totalKits; i++) {
+                const navBtn = document.createElement('div');
+                navBtn.className = `kit-nav-btn ${i === currentKit ? 'active' : ''}`;
+                navBtn.textContent = `Kit ${i}`;
+                navBtn.onclick = () => switchToKit(i);
+                navContainer.appendChild(navBtn);
+            }
         }
 
-        function selectOneOfEach() {
-            isOneOfEachSelected = true;
+        function switchToKit(kitNumber) {
+            if (kitNumber === currentKit) return;
+
+            // Quitar parpadeo al cambiar de kit
+            removeNextKitHighlight();
             
-            // Seleccionar uno de cada motivo con efectos visuales
-            motivos.forEach((motivo, index) => {
-                setTimeout(() => {
-                    selectedMotivos[motivo] = 1;
-                    const display = document.getElementById(`qty-display-${motivo}`);
-                    const item = display.closest('.motivo-item');
-                    
-                    if (display) {
-                        display.textContent = '1';
-                        display.classList.add('animate');
-                        setTimeout(() => display.classList.remove('animate'), 400);
+            saveCurrentKitState();
+            currentKit = kitNumber;
+            updateCurrentKitDisplay();
+            loadKitState();
+            updateNavigation();
+            
+            // NAVEGACIÓN AUTOMÁTICA: Ir a contadores al cambiar de kit
+            setTimeout(() => {
+                document.getElementById('countersSection').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                showAlert(`🎨 Personalizando Kit ${currentKit}`, 'success');
+            }, 300);
+        }
+
+        function updateNavigation() {
+            document.querySelectorAll('.kit-nav-btn').forEach(btn => {
+                if (!btn.classList.contains('back-btn')) {
+                    btn.classList.remove('active');
+                    if (btn.textContent === `Kit ${currentKit}`) {
+                        btn.classList.add('active');
                     }
-                    
-                    // Marcar como seleccionado con delay escalonado
+                }
+            });
+        }
+
+        function updateCurrentKitDisplay() {
+            document.getElementById('currentKitInfo').textContent = `Personalizando Kit ${currentKit} de ${totalKits}`;
+            document.getElementById('motivosSectionTitle').textContent = `Kit ${currentKit}`;
+            document.getElementById('coloresSectionTitle').textContent = `Kit ${currentKit}`;
+        }
+
+        function saveCurrentKitState() {
+            // Guardar motivos regulares
+            motivos.forEach(motivo => {
+                const input = document.getElementById(`qty-input-${motivo}`);
+                if (input) {
+                    kitsData[currentKit].motivos[motivo] = parseInt(input.value) || 0;
+                }
+            });
+
+            // Guardar colores
+            kitsData[currentKit].colores = [];
+            document.querySelectorAll('.color-item.selected').forEach(item => {
+                const colorIndex = parseInt(item.id.replace('color-', ''));
+                kitsData[currentKit].colores.push(colorIndex);
+            });
+        }
+
+        function loadKitState() {
+            const kitData = kitsData[currentKit];
+
+            // Cargar motivos regulares
+            motivos.forEach(motivo => {
+                const input = document.getElementById(`qty-input-${motivo}`);
+                const item = input.closest('.motivo-item');
+                const quantity = kitData.motivos[motivo] || 0;
+                
+                input.value = quantity;
+                if (quantity > 0) {
                     item.classList.add('selected');
-                }, index * 50); // Efecto cascada
-            });
-            
-            // Actualizar interfaz después de todas las animaciones
-            setTimeout(() => {
-                updateCounters();
-                updateWhatsAppButton();
-            }, motivos.length * 50 + 200);
-            
-            // Mostrar botón de selección personalizada y ocultar el de "uno de cada uno"
-            document.getElementById('quickSelectBtn').style.display = 'none';
-            document.getElementById('customSelectBtn').style.display = 'inline-block';
-            
-            // Ocultar la sección completa de motivos
-            setTimeout(() => {
-                document.querySelector('.section:has(#motivosGrid)').style.display = 'none';
-            }, motivos.length * 50 + 500);
-            
-            // Hacer scroll automático a la sección de colores
-            setTimeout(() => {
-                document.querySelector('.section:has(#coloresGrid)').scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                showAlert('✅ ¡Perfecto! Kit completo seleccionado. Ahora elige tus colores de glitter ⬇️', 'success');
-            }, motivos.length * 50 + 800);
-        }
-
-        function enableCustomSelection() {
-            isOneOfEachSelected = false;
-            
-            // Limpiar selección con efectos visuales
-            motivos.forEach((motivo, index) => {
-                setTimeout(() => {
-                    selectedMotivos[motivo] = 0;
-                    const display = document.getElementById(`qty-display-${motivo}`);
-                    const item = display.closest('.motivo-item');
-                    
-                    if (display) {
-                        display.textContent = '0';
-                        display.classList.add('animate');
-                        setTimeout(() => display.classList.remove('animate'), 400);
-                    }
-                    
-                    // Remover selección con delay escalonado
+                } else {
                     item.classList.remove('selected');
-                }, index * 30); // Efecto cascada más rápido para limpiar
+                }
             });
-            
-            // Actualizar interfaz después de todas las animaciones
-            setTimeout(() => {
-                updateCounters();
-                updateWhatsAppButton();
-            }, motivos.length * 30 + 200);
-            
-            // Mostrar botón de "uno de cada uno" y ocultar el de selección personalizada
-            document.getElementById('quickSelectBtn').style.display = 'inline-block';
-            document.getElementById('customSelectBtn').style.display = 'none';
-            
-            // Mostrar la sección de motivos nuevamente
-            document.querySelector('.section:has(#motivosGrid)').style.display = 'block';
-            
-            // Hacer scroll a la sección de motivos
-            setTimeout(() => {
-                document.querySelector('.section:has(#motivosGrid)').scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }, 100);
-            
-            clearAlerts();
+
+            // Cargar motivos especiales
+            renderMotivosEspeciales();
+
+            // Cargar colores
+            document.querySelectorAll('.color-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            kitData.colores.forEach(colorIndex => {
+                const colorItem = document.getElementById(`color-${colorIndex}`);
+                if (colorItem) {
+                    colorItem.classList.add('selected');
+                }
+            });
+
+            updateCounters();
+            updateNextKitButton();
         }
 
+        // MOTIVOS ESPECIALES
+        function agregarMotivoEspecial() {
+            const id = Date.now();
+            const motivoData = { id: id, nombre: '', cantidad: 1 };
+            kitsData[currentKit].motivosEspeciales.push(motivoData);
+            renderMotivosEspeciales();
+            updateCounters();
+        }
+
+        function eliminarMotivoEspecial(id) {
+            kitsData[currentKit].motivosEspeciales = kitsData[currentKit].motivosEspeciales.filter(m => m.id !== id);
+            renderMotivosEspeciales();
+            updateCounters();
+        }
+
+        function actualizarMotivoEspecial(id, campo, valor) {
+            const motivo = kitsData[currentKit].motivosEspeciales.find(m => m.id === id);
+            if (motivo) {
+                if (campo === 'cantidad') {
+                    valor = Math.max(1, parseInt(valor) || 1);
+                    const currentTotal = getTotalMotivos() - motivo.cantidad;
+                    const maxAllowed = Math.min(valor, MAX_MOTIVOS - currentTotal);
+                    
+                    if (valor > maxAllowed) {
+                        valor = maxAllowed;
+                        showAlert(`⚠️ No puedes exceder ${MAX_MOTIVOS} motivos en total`, 'warning');
+                        // Actualizar el input con el valor permitido
+                        setTimeout(() => {
+                            const input = document.querySelector(`input[oninput*="${id}"][oninput*="cantidad"]`);
+                            if (input) input.value = valor;
+                        }, 0);
+                    }
+                }
+                motivo[campo] = valor;
+                updateCounters();
+                updateNextKitButton();
+                checkMotivosCompletos();
+                clearAlerts();
+            }
+        }
+
+        function renderMotivosEspeciales() {
+            const container = document.getElementById('specialMotivosContainer');
+            container.innerHTML = '';
+            
+            if (!kitsData[currentKit] || !kitsData[currentKit].motivosEspeciales) {
+                return;
+            }
+            
+            kitsData[currentKit].motivosEspeciales.forEach(motivo => {
+                const item = document.createElement('div');
+                item.className = 'special-motivo-item';
+                item.innerHTML = `
+                    <input type="text" 
+                           class="special-motivo-name-input" 
+                           placeholder="Ej: Kuromi, My Melody, Stitch..." 
+                           value="${motivo.nombre}"
+                           oninput="actualizarMotivoEspecial(${motivo.id}, 'nombre', this.value)">
+                    <input type="number" 
+                           class="special-motivo-quantity-input" 
+                           min="1" max="30" 
+                           value="${motivo.cantidad}"
+                           oninput="actualizarMotivoEspecial(${motivo.id}, 'cantidad', this.value)">
+                    <button class="btn-remove-special" onclick="eliminarMotivoEspecial(${motivo.id})">✕</button>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // MOTIVOS REGULARES
         function createMotivosGrid() {
             const grid = document.getElementById('motivosGrid');
             grid.innerHTML = '';
@@ -1462,27 +1204,101 @@
                 const item = document.createElement('div');
                 item.className = 'motivo-item';
                 
-                const imageUrl = motivoImages[motivo];
-                
                 item.innerHTML = `
                     <div class="motivo-image-container" onclick="increaseQuantity('${motivo}')">
-                        <img src="${imageUrl}" alt="${motivo}" class="motivo-image" 
-                             onerror="handleImageError(this)">
+                        <img src="${motivoImages[motivo]}" alt="${motivo}" class="motivo-image" onerror="this.style.display='none'">
                     </div>
-                    <div class="motivo-content">
-                        <div class="motivo-name">${motivo}</div>
-                        <div class="quantity-controls">
-                            <button class="btn-quantity" onclick="decreaseQuantity('${motivo}')">−</button>
-                            <div class="quantity-display" id="qty-display-${motivo}">0</div>
-                            <button class="btn-quantity" onclick="increaseQuantity('${motivo}')">+</button>
-                        </div>
+                    <div class="motivo-name">${motivo}</div>
+                    <div class="quantity-controls">
+                        <button class="btn-quantity" onclick="decreaseQuantity('${motivo}')">−</button>
+                        <input type="number" class="quantity-display" id="qty-input-${motivo}" 
+                               value="0" min="0" max="30" 
+                               onchange="updateQuantityFromInput('${motivo}')">
+                        <button class="btn-quantity" onclick="increaseQuantity('${motivo}')">+</button>
                     </div>
                 `;
                 grid.appendChild(item);
-                selectedMotivos[motivo] = 0;
             });
         }
 
+        function increaseQuantity(motivo) {
+            if (getTotalMotivos() < MAX_MOTIVOS) {
+                kitsData[currentKit].motivos[motivo]++;
+                updateMotivoDisplay(motivo);
+                updateCounters();
+                checkMotivosCompletos();
+                clearAlerts();
+            } else {
+                showAlert('⚠️ Has alcanzado el límite de 30 motivos en total (regulares + especiales)', 'warning');
+            }
+        }
+
+        function decreaseQuantity(motivo) {
+            if (kitsData[currentKit].motivos[motivo] > 0) {
+                kitsData[currentKit].motivos[motivo]--;
+                updateMotivoDisplay(motivo);
+                updateCounters();
+                clearAlerts();
+            }
+        }
+
+        function updateQuantityFromInput(motivo) {
+            let newValue = parseInt(document.getElementById(`qty-input-${motivo}`).value) || 0;
+            
+            if (newValue < 0) newValue = 0;
+            if (newValue > 30) newValue = 30;
+            
+            const currentTotal = getTotalMotivos() - kitsData[currentKit].motivos[motivo];
+            const maxAllowed = Math.min(newValue, MAX_MOTIVOS - currentTotal);
+            
+            if (newValue > maxAllowed) {
+                newValue = maxAllowed;
+                showAlert(`⚠️ No puedes exceder ${MAX_MOTIVOS} motivos en total (regulares + especiales)`, 'warning');
+            }
+            
+            kitsData[currentKit].motivos[motivo] = newValue;
+            updateMotivoDisplay(motivo);
+            updateCounters();
+            checkMotivosCompletos();
+            clearAlerts();
+        }
+
+        function clearAlerts() {
+            setTimeout(() => {
+                document.getElementById('alerts').innerHTML = '';
+            }, 3000);
+        }
+
+        function updateMotivoDisplay(motivo) {
+            const input = document.getElementById(`qty-input-${motivo}`);
+            const item = input.closest('.motivo-item');
+            
+            input.value = kitsData[currentKit].motivos[motivo];
+            
+            if (kitsData[currentKit].motivos[motivo] > 0) {
+                item.classList.add('selected');
+            } else {
+                item.classList.remove('selected');
+            }
+        }
+
+        function checkMotivosCompletos() {
+            if (getTotalMotivos() === MAX_MOTIVOS) {
+                document.getElementById('coloresSection').style.display = 'block';
+                
+                // NAVEGACIÓN AUTOMÁTICA: Ir a colores cuando se completen los motivos
+                setTimeout(() => {
+                    document.getElementById('coloresSection').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    showAlert('✅ ¡Perfecto! Ahora elige 6 colores para este kit', 'success');
+                }, 800);
+            }
+            updateNextKitButton();
+        }
+
+        // COLORES
         function createColoresGrid() {
             const grid = document.getElementById('coloresGrid');
             grid.innerHTML = '';
@@ -1500,126 +1316,222 @@
             });
         }
 
-        function increaseQuantity(motivo) {
-            if (isOneOfEachSelected) return;
-            
-            const totalMotivos = getTotalMotivos();
-            if (totalMotivos < MAX_MOTIVOS) {
-                selectedMotivos[motivo]++;
-                const display = document.getElementById(`qty-display-${motivo}`);
-                const item = display.closest('.motivo-item');
-                
-                // Actualizar display con animación
-                display.textContent = selectedMotivos[motivo];
-                display.classList.add('animate');
-                setTimeout(() => display.classList.remove('animate'), 400);
-                
-                // Marcar item como seleccionado
-                if (selectedMotivos[motivo] > 0) {
-                    item.classList.add('selected');
-                }
-                
-                updateCounters();
-                updateWhatsAppButton();
-                clearAlerts();
-                
-                // Si alcanzó 30 motivos, ir automáticamente a colores
-                if (getTotalMotivos() === MAX_MOTIVOS) {
-                    updateProgressBar(2);
-                    setTimeout(() => {
-                        document.querySelector('.section:has(#coloresGrid)').scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                        document.querySelector('.section:has(#coloresGrid)').classList.add('slide-in');
-                        showAlert('✅ ¡Perfecto! Has alcanzado 30 motivos. Ahora elige tus colores ⬇️', 'success');
-                    }, 500);
-                }
-            } else {
-                // Efecto de shake cuando se alcanza el límite
-                const alertsContainer = document.getElementById('alerts');
-                alertsContainer.style.animation = 'shake 0.5s ease-in-out';
-                setTimeout(() => alertsContainer.style.animation = '', 500);
-                showAlert('⚠️ Has alcanzado el límite máximo de 30 motivos', 'warning');
-            }
-        }
-
-        function decreaseQuantity(motivo) {
-            if (isOneOfEachSelected) return;
-            
-            if (selectedMotivos[motivo] > 0) {
-                selectedMotivos[motivo]--;
-                const display = document.getElementById(`qty-display-${motivo}`);
-                const item = display.closest('.motivo-item');
-                
-                // Actualizar display con animación
-                display.textContent = selectedMotivos[motivo];
-                display.classList.add('animate');
-                setTimeout(() => display.classList.remove('animate'), 400);
-                
-                // Remover selección si llegó a 0
-                if (selectedMotivos[motivo] === 0) {
-                    item.classList.remove('selected');
-                }
-                
-                updateCounters();
-                updateWhatsAppButton();
-                clearAlerts();
-            }
-        }
-
         function toggleColor(index) {
             const colorItem = document.getElementById(`color-${index}`);
-            const colorIndex = selectedColores.indexOf(index);
+            const colorIndex = kitsData[currentKit].colores.indexOf(index);
             
             if (colorIndex === -1) {
-                if (selectedColores.length < MAX_COLORES) {
-                    selectedColores.push(index);
+                if (kitsData[currentKit].colores.length < MAX_COLORES) {
+                    kitsData[currentKit].colores.push(index);
                     colorItem.classList.add('selected');
-                    clearAlerts();
+                    updateCounters();
+                    updateNextKitButton();
                     
-                    // Si seleccionó 6 colores, ir automáticamente a información de envío
-                    if (selectedColores.length === MAX_COLORES) {
-                        updateProgressBar(3);
-                        setTimeout(() => {
-                            document.querySelector('.section:has(.shipping-form)').scrollIntoView({ 
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                            document.querySelector('.section:has(.shipping-form)').classList.add('fade-in');
-                            showAlert('✅ ¡Perfecto! Ahora completa tu información de envío ⬇️', 'success');
-                        }, 500);
+                    // NAVEGACIÓN AUTOMÁTICA: Si completó los 6 colores
+                    if (kitsData[currentKit].colores.length === MAX_COLORES) {
+                        if (currentKit < totalKits) {
+                            // Hay más kits por personalizar
+                            setTimeout(() => {
+                                showAlert(`✅ Kit ${currentKit} completado! Continúa con el siguiente kit`, 'success');
+                                highlightNextKit();
+                            }, 1000);
+                        } else {
+                            // Es el último kit, ir al resumen
+                            setTimeout(() => {
+                                showAlert('🎉 ¡Todos los kits completados! Revisando resumen...', 'success');
+                                setTimeout(() => {
+                                    goToNextKit(); // Esto llevará al resumen
+                                }, 1500);
+                            }, 1000);
+                        }
                     }
                 } else {
-                    showAlert('⚠️ Has alcanzado el límite máximo de 6 colores', 'warning');
+                    showAlert('⚠️ Máximo 6 colores por kit', 'warning');
                 }
             } else {
-                selectedColores.splice(colorIndex, 1);
+                kitsData[currentKit].colores.splice(colorIndex, 1);
                 colorItem.classList.remove('selected');
-                clearAlerts();
+                updateCounters();
+                updateNextKitButton();
+                removeNextKitHighlight(); // Quitar parpadeo si está incompleto
             }
-            
-            updateCounters();
-            updateWhatsAppButton();
         }
 
+        // FUNCIONES PARA PARPADEO DEL SIGUIENTE KIT
+        function highlightNextKit() {
+            if (currentKit < totalKits) {
+                const nextKitIndex = currentKit + 1;
+                const nextKitBtn = document.querySelectorAll('.kit-nav-btn')[nextKitIndex + 1]; // +1 por el botón back
+                if (nextKitBtn) {
+                    nextKitBtn.classList.add('next-blink');
+                    
+                    // Mostrar mensaje para continuar
+                    setTimeout(() => {
+                        showAlert(`👆 Haz clic en "Kit ${nextKitIndex}" para continuar personalizando`, 'success');
+                    }, 500);
+                }
+            }
+        }
+
+        function removeNextKitHighlight() {
+            document.querySelectorAll('.kit-nav-btn').forEach(btn => {
+                btn.classList.remove('next-blink');
+            });
+        }
+
+        // NAVEGACIÓN ENTRE KITS
+        function updateNextKitButton() {
+            const nextBtn = document.getElementById('nextKitBtn');
+            const totalMotivos = getTotalMotivos();
+            const hasColores = kitsData[currentKit].colores.length === MAX_COLORES;
+            
+            if (totalMotivos === MAX_MOTIVOS && hasColores) {
+                nextBtn.style.display = 'block';
+                if (currentKit < totalKits) {
+                    nextBtn.textContent = `➡️ Continuar al Kit ${currentKit + 1}`;
+                } else {
+                    nextBtn.textContent = '✅ Ir al Resumen del Pedido';
+                }
+            } else {
+                nextBtn.style.display = 'none';
+            }
+        }
+
+        function goToNextKit() {
+            saveCurrentKitState();
+            
+            // Marcar como completado y quitar parpadeo
+            const currentNavBtn = document.querySelectorAll('.kit-nav-btn')[currentKit + 1]; // +1 por el botón back
+            if (currentNavBtn) {
+                currentNavBtn.classList.add('completed');
+                currentNavBtn.classList.remove('next-blink');
+            }
+
+            if (currentKit < totalKits) {
+                currentKit++;
+                updateCurrentKitDisplay();
+                loadKitState();
+                updateNavigation();
+                
+                // NAVEGACIÓN AUTOMÁTICA: Ir al siguiente kit
+                setTimeout(() => {
+                    document.getElementById('countersSection').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    showAlert(`🎨 Kit ${currentKit - 1} completado! Personaliza el Kit ${currentKit}`, 'success');
+                }, 500);
+            } else {
+                // NAVEGACIÓN AUTOMÁTICA: Ir al resumen final
+                showShippingSection();
+            }
+        }
+
+        function showShippingSection() {
+            // Quitar cualquier parpadeo
+            removeNextKitHighlight();
+            
+            // Ocultar secciones de personalización
+            document.getElementById('kitNavigationBar').style.display = 'none';
+            document.getElementById('currentKitInfo').style.display = 'none';
+            document.getElementById('countersSection').style.display = 'none';
+            document.getElementById('motivosSection').style.display = 'none';
+            document.getElementById('coloresSection').style.display = 'none';
+            
+            // Mostrar sección de envío y pago
+            document.getElementById('shippingSection').style.display = 'block';
+            document.getElementById('paymentSection').style.display = 'block';
+
+            updateOrderSummary();
+            updatePaymentAmount();
+
+            // NAVEGACIÓN AUTOMÁTICA: Ir al resumen del pedido
+            setTimeout(() => {
+                document.getElementById('shippingSection').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                showAlert('🎉 ¡Todos los kits completados! Revisa tu resumen y completa los datos de envío', 'success');
+            }, 800);
+        }
+
+        // UTILIDADES
         function getTotalMotivos() {
-            return Object.values(selectedMotivos).reduce((sum, qty) => sum + qty, 0);
+            const regularMotivos = Object.values(kitsData[currentKit].motivos).reduce((sum, qty) => sum + qty, 0);
+            const specialMotivos = kitsData[currentKit].motivosEspeciales.reduce((sum, motivo) => sum + (motivo.cantidad || 0), 0);
+            return regularMotivos + specialMotivos;
+        }
+
+        function getTotalMotivosForKit(kitNumber) {
+            const regularMotivos = Object.values(kitsData[kitNumber].motivos).reduce((sum, qty) => sum + qty, 0);
+            const specialMotivos = kitsData[kitNumber].motivosEspeciales.reduce((sum, motivo) => sum + (motivo.cantidad || 0), 0);
+            return regularMotivos + specialMotivos;
         }
 
         function updateCounters() {
-            const totalMotivos = getTotalMotivos();
-            animateCounter('totalMotivos', totalMotivos);
-            animateCounter('totalColores', selectedColores.length);
+            document.getElementById('totalMotivos').textContent = getTotalMotivos();
+            document.getElementById('totalColores').textContent = kitsData[currentKit].colores.length;
         }
 
-        function updateWhatsAppButton() {
-            const btn = document.getElementById('whatsappBtn');
-            const hasMotivos = getTotalMotivos() > 0;
-            const hasColores = selectedColores.length > 0;
-            const hasRequiredFields = validateRequiredFields();
+        function updateOrderSummary() {
+            const container = document.getElementById('orderSummary');
+            container.innerHTML = '<h3 style="color: #E50695; text-align: center; margin-bottom: 20px;">📋 Resumen del Pedido</h3>';
+
+            for (let i = 1; i <= totalKits; i++) {
+                const kitData = kitsData[i];
+                const totalMotivos = getTotalMotivosForKit(i);
+                
+                let motivosHTML = '';
+                Object.keys(kitData.motivos).forEach(motivo => {
+                    if (kitData.motivos[motivo] > 0) {
+                        motivosHTML += `${motivo} (${kitData.motivos[motivo]}), `;
+                    }
+                });
+                
+                kitData.motivosEspeciales.forEach(motivo => {
+                    if (motivo.nombre.trim() && motivo.cantidad > 0) {
+                        motivosHTML += `⭐${motivo.nombre} (${motivo.cantidad}), `;
+                    }
+                });
+                
+                let coloresHTML = '';
+                kitData.colores.forEach(colorIndex => {
+                    coloresHTML += `${colores[colorIndex].emoji}${colores[colorIndex].name}, `;
+                });
+                
+                container.innerHTML += `
+                    <div style="background: rgba(229, 6, 149, 0.1); border-radius: 10px; padding: 15px; margin-bottom: 15px;">
+                        <h4 style="color: #E50695;">🎨 Kit ${i}</h4>
+                        <p><strong>Motivos (${totalMotivos}/30):</strong> ${motivosHTML.slice(0, -2)}</p>
+                        <p><strong>Colores (${kitData.colores.length}/6):</strong> ${coloresHTML.slice(0, -2)}</p>
+                    </div>
+                `;
+            }
+
+            const kitsTotal = totalKits * KIT_PRICE;
+            const total = kitsTotal + SHIPPING_PRICE;
             
-            btn.disabled = !hasMotivos || !hasColores || !hasRequiredFields;
+            container.innerHTML += `
+                <div style="border-top: 2px solid #E50695; padding-top: 15px; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>${totalKits} Kit${totalKits > 1 ? 's' : ''}:</span>
+                        <span style="color: #E50695; font-weight: bold;">${kitsTotal.toLocaleString()}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Domicilio:</span>
+                        <span style="color: #E50695; font-weight: bold;">${SHIPPING_PRICE.toLocaleString()}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 1.2em; font-weight: bold;">
+                        <span>Total:</span>
+                        <span style="color: #E50695;">${total.toLocaleString()}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updatePaymentAmount() {
+            const total = (totalKits * KIT_PRICE) + SHIPPING_PRICE;
+            document.getElementById('paymentAmount').textContent = `💰 ${total.toLocaleString()}`;
         }
 
         function validateRequiredFields() {
@@ -1627,198 +1539,104 @@
             const telefono = document.getElementById('telefono').value.trim();
             const direccion = document.getElementById('direccion').value.trim();
             const ciudad = document.getElementById('ciudad').value.trim();
-            
             return nombre && telefono && direccion && ciudad;
         }
 
         function showAlert(message, type) {
             const alertsContainer = document.getElementById('alerts');
             alertsContainer.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-        }
-
-        function clearAlerts() {
-            document.getElementById('alerts').innerHTML = '';
+            setTimeout(() => alertsContainer.innerHTML = '', 3000);
         }
 
         function enviarWhatsApp() {
-            const totalMotivos = getTotalMotivos();
-            const hasColores = selectedColores.length > 0;
-            
-            if (totalMotivos === 0) {
-                showAlert('❌ Debes seleccionar al menos un motivo', 'danger');
-                return;
-            }
-            
-            if (!hasColores) {
-                showAlert('❌ Debes seleccionar al menos un color', 'danger');
-                return;
-            }
-
             if (!validateRequiredFields()) {
-                showAlert('❌ Por favor completa todos los campos obligatorios de envío', 'danger');
+                showAlert('❌ Completa todos los campos obligatorios', 'danger');
                 return;
             }
 
-            // Preparar datos para Google Sheets
-            const datosParaSheet = prepararDatosParaSheet();
-            
-            // Enviar a Google Sheets
-            enviarAGoogleForms(datosParaSheet);
-
-            // Obtener datos del formulario para WhatsApp
             const nombre = document.getElementById('nombreCompleto').value.trim();
             const telefono = document.getElementById('telefono').value.trim();
             const direccion = document.getElementById('direccion').value.trim();
             const unidad = document.getElementById('unidad').value.trim();
             const ciudad = document.getElementById('ciudad').value.trim();
 
-            let mensaje = "🎨 *PEDIDO DE KIT PERSONALIZADO* 🎨\n\n";
+            let mensaje = "🎨 *PEDIDO KOKITO STAR* 🎨\n\n";
+            mensaje += `📦 *${totalKits} Kit${totalKits > 1 ? 's' : ''}*\n\n`;
             
-            if (isOneOfEachSelected) {
-                mensaje += "🎯 *SELECCIÓN:* UNO DE CADA UNO\n";
-                mensaje += "📋 *MOTIVOS:* Un motivo de cada diseño disponible\n";
-            } else {
-                mensaje += "📋 *MOTIVOS SELECCIONADOS:*\n";
-                Object.keys(selectedMotivos).forEach(motivo => {
-                    if (selectedMotivos[motivo] > 0) {
-                        mensaje += `• ${motivo}: ${selectedMotivos[motivo]} unidades\n`;
+            for (let i = 1; i <= totalKits; i++) {
+                const kitData = kitsData[i];
+                mensaje += `🎨 *KIT ${i}:*\n`;
+                
+                // Motivos regulares
+                Object.keys(kitData.motivos).forEach(motivo => {
+                    if (kitData.motivos[motivo] > 0) {
+                        mensaje += `• ${motivo}: ${kitData.motivos[motivo]}\n`;
                     }
                 });
+                
+                // Motivos especiales
+                kitData.motivosEspeciales.forEach(motivo => {
+                    if (motivo.nombre.trim() && motivo.cantidad > 0) {
+                        mensaje += `• ⭐ ${motivo.nombre}: ${motivo.cantidad}\n`;
+                    }
+                });
+                
+                mensaje += "\n🌈 *Colores:*\n";
+                kitData.colores.forEach(index => {
+                    mensaje += `${colores[index].emoji} ${colores[index].name}\n`;
+                });
+                mensaje += "\n";
             }
             
-            mensaje += `\n📊 *Total motivos:* ${totalMotivos}/30\n\n`;
+            const kitsTotal = totalKits * KIT_PRICE;
+            const total = kitsTotal + SHIPPING_PRICE;
             
-            mensaje += "🌈 *COLORES DE GLITTER SELECCIONADOS:*\n";
-            selectedColores.forEach(index => {
-                mensaje += `${colores[index].emoji} ${colores[index].name}\n`;
-            });
+            mensaje += "💰 *TOTAL:*\n";
+            mensaje += `• Kits: ${kitsTotal.toLocaleString()}\n`;
+            mensaje += `• Domicilio: ${SHIPPING_PRICE.toLocaleString()}\n`;
+            mensaje += `• *Total: ${total.toLocaleString()}*\n\n`;
             
-            mensaje += `\n🎨 *Total colores:* ${selectedColores.length}/6\n\n`;
-            
-            mensaje += "💰 *VALOR TOTAL:* $155.000 (Domicilio incluido)\n\n";
-            
-            mensaje += "📦 *INFORMACIÓN DE ENVÍO:*\n";
-            mensaje += `🤩 *Nombre:* ${nombre}\n`;
-            mensaje += `☎️ *Teléfono:* ${telefono}\n`;
-            mensaje += `📪 *Dirección:* ${direccion}\n`;
-            if (unidad) {
-                mensaje += `🏢 *Unidad/Edificio:* ${unidad}\n`;
-            }
-            mensaje += `🌇 *Ciudad:* ${ciudad}\n\n`;
-            
-            mensaje += "¡Gracias por tu pedido! ✨😊";
+            mensaje += "📦 *ENVÍO:*\n";
+            mensaje += `🤩 ${nombre}\n`;
+            mensaje += `☎️ ${telefono}\n`;
+            mensaje += `📪 ${direccion}\n`;
+            if (unidad) mensaje += `🏢 ${unidad}\n`;
+            mensaje += `🌇 ${ciudad}\n\n`;
+            mensaje += "¡Gracias! ✨";
 
-            const numeroWhatsApp = "573052661533";
-            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-            
+            const url = `https://wa.me/573052661533?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
-            
-            showAlert('✅ ¡Pedido enviado a WhatsApp y guardado en base de datos! 🎉', 'success');
+            showAlert('✅ Pedido enviado!', 'success');
         }
 
-        function updateOrderSummary() {
-            const totalMotivos = getTotalMotivos();
-            const nombre = document.getElementById('nombreCompleto').value.trim();
-            const ciudad = document.getElementById('ciudad').value.trim();
-            
-            document.getElementById('summaryMotivos').textContent = `${totalMotivos}/30`;
-            document.getElementById('summaryColores').textContent = `${selectedColores.length}/6`;
-            document.getElementById('summaryNombre').textContent = nombre || '-';
-            document.getElementById('summaryCiudad').textContent = ciudad || '-';
-        }
-
-        function enviarAGoogleForms(datosCliente) {
-            // NOTA: Para que esto funcione, necesitas:
-            // 1. Crear un formulario real en Google Forms
-            // 2. Obtener la URL de envío real
-            // 3. Reemplazar los entry.XXXXXXX con los IDs reales de tu formulario
-            
-            // URL del formulario Google (REEMPLAZAR CON TU FORMULARIO REAL)
-            const FORM_URL = 'TU_URL_DE_GOOGLE_FORMS_AQUI';
-            
-            // Por ahora, simular el envío y mostrar los datos en consola
-            console.log('📋 DATOS PREPARADOS PARA GOOGLE FORMS:');
-            console.log('Fecha y Hora:', new Date().toLocaleString('es-CO', {
-                timeZone: 'America/Bogota',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit'
-            }));
-            console.log('Cliente:', datosCliente);
-        }
-
-        function prepararDatosParaSheet() {
-            const nombre = document.getElementById('nombreCompleto').value.trim();
-            const telefono = document.getElementById('telefono').value.trim();
-            const direccion = document.getElementById('direccion').value.trim();
-            const unidad = document.getElementById('unidad').value.trim();
-            const ciudad = document.getElementById('ciudad').value.trim();
-            
-            // Preparar lista de motivos
-            let motivosTexto = '';
-            if (isOneOfEachSelected) {
-                motivosTexto = 'Un motivo de cada diseño disponible (30 total)';
-            } else {
-                const motivosSeleccionados = [];
-                Object.keys(selectedMotivos).forEach(motivo => {
-                    if (selectedMotivos[motivo] > 0) {
-                        motivosSeleccionados.push(`${motivo}: ${selectedMotivos[motivo]}`);
-                    }
-                });
-                motivosTexto = motivosSeleccionados.join(', ');
-            }
-            
-            // Preparar lista de colores
-            const coloresTexto = selectedColores.map(index => colores[index].name).join(', ');
-            
-            return {
-                nombre: nombre,
-                telefono: telefono,
-                direccion: direccion + (unidad ? `, ${unidad}` : ''),
-                ciudad: ciudad,
-                motivos: motivosTexto,
-                totalMotivos: getTotalMotivos(),
-                colores: coloresTexto,
-                tipoSeleccion: isOneOfEachSelected ? 'Uno de cada uno' : 'Personalizado'
-            };
-        }
-
-        // Event listeners para validar formulario en tiempo real y navegar automáticamente
+        // INICIALIZACIÓN
         document.addEventListener('DOMContentLoaded', function() {
-            const formInputs = ['nombreCompleto', 'telefono', 'direccion', 'ciudad'];
-            formInputs.forEach(id => {
+            initializeApp();
+            
+            document.getElementById('decreaseKitsBtn').addEventListener('click', () => changeKitQuantity(-1));
+            document.getElementById('increaseKitsBtn').addEventListener('click', () => changeKitQuantity(1));
+            document.getElementById('confirmQuantityBtn').addEventListener('click', confirmKitQuantity);
+            document.getElementById('nextKitBtn').addEventListener('click', goToNextKit);
+            
+            // Validación en tiempo real del formulario con navegación automática
+            ['nombreCompleto', 'telefono', 'direccion', 'ciudad'].forEach(id => {
                 const input = document.getElementById(id);
-                input.addEventListener('input', function() {
-                    updateWhatsAppButton();
-                    
-                    // Si completó todos los campos requeridos, mostrar resumen y ir a información de pago
-                    if (validateRequiredFields() && getTotalMotivos() > 0 && selectedColores.length > 0) {
-                        updateProgressBar(4); // Cambiar a paso 4 "Listo"
-                        updateOrderSummary();
-                        setTimeout(() => {
-                            const orderSummary = document.getElementById('orderSummary');
-                            if (orderSummary) {
-                                orderSummary.style.display = 'block';
-                                orderSummary.classList.add('fade-in');
-                            }
+                if (input) {
+                    input.addEventListener('input', function() {
+                        if (validateRequiredFields()) {
+                            // NAVEGACIÓN AUTOMÁTICA: Ir al pago cuando se completen los datos
                             setTimeout(() => {
-                                document.querySelector('.payment-section').scrollIntoView({ 
+                                document.getElementById('paymentSection').scrollIntoView({ 
                                     behavior: 'smooth',
                                     block: 'start'
                                 });
-                                document.querySelector('.payment-section').classList.add('slide-in');
-                                showAlert('✅ ¡Todo listo! Revisa tu resumen y realiza el pago ⬇️', 'success');
-                            }, 300);
-                        }, 200);
-                    }
-                });
+                                showAlert('✅ ¡Información completa! Ya puedes enviar tu pedido por WhatsApp', 'success');
+                            }, 1000);
+                        }
+                    });
+                }
             });
         });
-
-        // Inicializar la aplicación
-        initializeApp();
     </script>
 </body>
 </html>
