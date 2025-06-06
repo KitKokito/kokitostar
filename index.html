@@ -89,23 +89,38 @@
             font-size: 1.1em;
         }
 
-        .kit-nav-btn.next-blink {
-            animation: nextKitBlink 2s infinite;
+        .kit-nav-btn.next-to-complete {
+            animation: parpadeo 1.5s ease-in-out infinite;
+            border-color: #ff6b35 !important;
+            background: linear-gradient(135deg, #ff6b35, #f7931e) !important;
+            color: white !important;
         }
 
-        @keyframes nextKitBlink {
-            0%, 50% { 
-                background: linear-gradient(135deg, #ff6b35, #f7931e);
-                border-color: #ff6b35;
-                transform: translateY(-2px) scale(1.05);
-                box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6);
+        @keyframes parpadeo {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
             }
-            25%, 75% { 
-                background: linear-gradient(135deg, #ffcc02, #ffd700);
-                border-color: #ffcc02;
-                transform: translateY(-4px) scale(1.1);
-                box-shadow: 0 12px 30px rgba(255, 204, 2, 0.8);
+            50% { 
+                opacity: 0.7; 
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(255, 107, 53, 0.8);
             }
+        }
+
+        .whatsapp-btn:disabled {
+            background: linear-gradient(135deg, #666, #555);
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .whatsapp-btn:disabled:hover {
+            background: linear-gradient(135deg, #666, #555);
+            transform: none;
+            box-shadow: none;
         }
 
         .container {
@@ -333,79 +348,86 @@
             font-weight: bold;
         }
 
-        /* GRID DE MOTIVOS */
+        /* GRID DE MOTIVOS - MEJORADO */
         .motivos-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            gap: 20px;
             margin-bottom: 30px;
+            justify-items: center;
+            align-items: start;
         }
 
         .motivo-item {
             background: linear-gradient(145deg, rgba(229, 6, 149, 0.1), rgba(255, 105, 180, 0.05));
-            border: 2px solid rgba(229, 6, 149, 0.3);
-            border-radius: 20px;
-            padding: 15px;
+            border: 3px solid rgba(229, 6, 149, 0.3);
+            border-radius: 25px;
+            padding: 20px;
             transition: all 0.3s ease;
             color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 10px;
+            gap: 15px;
             cursor: pointer;
+            width: 100%;
+            max-width: 200px;
+            min-height: 220px;
         }
 
         .motivo-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             border-color: #E50695;
-            box-shadow: 0 10px 20px rgba(229, 6, 149, 0.3);
+            box-shadow: 0 15px 30px rgba(229, 6, 149, 0.4);
         }
 
         .motivo-item.selected {
             border-color: #E50695;
             background: linear-gradient(145deg, rgba(229, 6, 149, 0.25), rgba(255, 105, 180, 0.15));
-            box-shadow: 0 8px 15px rgba(229, 6, 149, 0.4);
+            box-shadow: 0 12px 25px rgba(229, 6, 149, 0.5);
         }
 
         .motivo-image-container {
             background: #ffffff;
             border-radius: 50%;
-            padding: 15px;
+            padding: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .motivo-image {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             object-fit: contain;
         }
 
         .motivo-name {
-            font-size: 1em;
+            font-size: 1.1em;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            line-height: 1.2;
         }
 
         .quantity-controls {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .btn-quantity {
             background: rgba(229, 6, 149, 0.2);
             color: #E50695;
             border: 2px solid rgba(229, 6, 149, 0.3);
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -423,10 +445,10 @@
             background: rgba(229, 6, 149, 0.2);
             color: white;
             border: 2px solid rgba(229, 6, 149, 0.4);
-            border-radius: 8px;
-            width: 40px;
-            height: 35px;
-            font-size: 1.1em;
+            border-radius: 10px;
+            width: 45px;
+            height: 40px;
+            font-size: 1.2em;
             font-weight: bold;
             text-align: center;
             outline: none;
@@ -674,16 +696,50 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .motivos-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .motivos-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 15px; 
+            }
             .colores-grid { grid-template-columns: repeat(2, 1fr); }
             .form-row { grid-template-columns: 1fr; }
             .counters { flex-direction: column; gap: 15px; }
             .special-motivo-item { flex-direction: column; gap: 10px; }
+            
+            .motivo-item {
+                max-width: none;
+                min-height: 200px;
+            }
+            
+            .motivo-image-container {
+                width: 100px;
+                height: 100px;
+                padding: 15px;
+            }
+            
+            .motivo-image {
+                width: 70px;
+                height: 70px;
+            }
         }
 
         @media (max-width: 480px) {
-            .motivos-grid { grid-template-columns: 1fr; }
-            .quantity-selector { flex-direction: column; gap: 10px; }
+            .motivos-grid { 
+                grid-template-columns: 1fr; 
+                gap: 15px;
+            }
+            
+            /* MANTENER LOS CONTROLES HORIZONTALES EN MÓVIL */
+            .quantity-selector {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .motivo-item {
+                min-height: 180px;
+            }
         }
     </style>
 </head>
@@ -865,8 +921,8 @@
                     <img src="motivos/QR_KITS.png" alt="QR de Pago" class="qr-image">
                 </div>
 
-                <button class="whatsapp-btn" onclick="enviarWhatsApp()">
-                    📱 Enviar Pedido por WhatsApp
+                <button class="whatsapp-btn" id="whatsappButton" onclick="enviarWhatsApp()" disabled>
+                    ⏳ Completa tu personalización de kits
                 </button>
             </div>
         </div>
@@ -999,13 +1055,13 @@
             createColoresGrid();
             updateCounters();
 
-            // NAVEGACIÓN AUTOMÁTICA: Ir a instrucciones
+            // NAVEGACIÓN AUTOMATIZADA: Scroll a instrucciones
             setTimeout(() => {
                 document.getElementById('instructionsSection').scrollIntoView({ 
                     behavior: 'smooth',
                     block: 'start'
                 });
-                showAlert('📋 ¡Perfecto! Revisa las instrucciones y comienza a personalizar', 'success');
+                showAlert('👆 Lee las instrucciones y luego personaliza tu primer kit', 'success');
             }, 500);
         }
 
@@ -1038,23 +1094,11 @@
         function switchToKit(kitNumber) {
             if (kitNumber === currentKit) return;
 
-            // Quitar parpadeo al cambiar de kit
-            removeNextKitHighlight();
-            
             saveCurrentKitState();
             currentKit = kitNumber;
             updateCurrentKitDisplay();
             loadKitState();
             updateNavigation();
-            
-            // NAVEGACIÓN AUTOMÁTICA: Ir a contadores al cambiar de kit
-            setTimeout(() => {
-                document.getElementById('countersSection').scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                showAlert(`🎨 Personalizando Kit ${currentKit}`, 'success');
-            }, 300);
         }
 
         function updateNavigation() {
@@ -1286,14 +1330,14 @@
             if (getTotalMotivos() === MAX_MOTIVOS) {
                 document.getElementById('coloresSection').style.display = 'block';
                 
-                // NAVEGACIÓN AUTOMÁTICA: Ir a colores cuando se completen los motivos
+                // NAVEGACIÓN AUTOMATIZADA: Scroll a colores
                 setTimeout(() => {
                     document.getElementById('coloresSection').scrollIntoView({ 
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    showAlert('✅ ¡Perfecto! Ahora elige 6 colores para este kit', 'success');
-                }, 800);
+                    showAlert('✅ ¡30 motivos completados! Ahora elige 6 colores para este kit', 'success');
+                }, 500);
             }
             updateNextKitButton();
         }
@@ -1326,25 +1370,6 @@
                     colorItem.classList.add('selected');
                     updateCounters();
                     updateNextKitButton();
-                    
-                    // NAVEGACIÓN AUTOMÁTICA: Si completó los 6 colores
-                    if (kitsData[currentKit].colores.length === MAX_COLORES) {
-                        if (currentKit < totalKits) {
-                            // Hay más kits por personalizar
-                            setTimeout(() => {
-                                showAlert(`✅ Kit ${currentKit} completado! Continúa con el siguiente kit`, 'success');
-                                highlightNextKit();
-                            }, 1000);
-                        } else {
-                            // Es el último kit, ir al resumen
-                            setTimeout(() => {
-                                showAlert('🎉 ¡Todos los kits completados! Revisando resumen...', 'success');
-                                setTimeout(() => {
-                                    goToNextKit(); // Esto llevará al resumen
-                                }, 1500);
-                            }, 1000);
-                        }
-                    }
                 } else {
                     showAlert('⚠️ Máximo 6 colores por kit', 'warning');
                 }
@@ -1353,30 +1378,7 @@
                 colorItem.classList.remove('selected');
                 updateCounters();
                 updateNextKitButton();
-                removeNextKitHighlight(); // Quitar parpadeo si está incompleto
             }
-        }
-
-        // FUNCIONES PARA PARPADEO DEL SIGUIENTE KIT
-        function highlightNextKit() {
-            if (currentKit < totalKits) {
-                const nextKitIndex = currentKit + 1;
-                const nextKitBtn = document.querySelectorAll('.kit-nav-btn')[nextKitIndex + 1]; // +1 por el botón back
-                if (nextKitBtn) {
-                    nextKitBtn.classList.add('next-blink');
-                    
-                    // Mostrar mensaje para continuar
-                    setTimeout(() => {
-                        showAlert(`👆 Haz clic en "Kit ${nextKitIndex}" para continuar personalizando`, 'success');
-                    }, 500);
-                }
-            }
-        }
-
-        function removeNextKitHighlight() {
-            document.querySelectorAll('.kit-nav-btn').forEach(btn => {
-                btn.classList.remove('next-blink');
-            });
         }
 
         // NAVEGACIÓN ENTRE KITS
@@ -1390,7 +1392,7 @@
                 if (currentKit < totalKits) {
                     nextBtn.textContent = `➡️ Continuar al Kit ${currentKit + 1}`;
                 } else {
-                    nextBtn.textContent = '✅ Ir al Resumen del Pedido';
+                    nextBtn.textContent = '✅ Finalizar Personalización';
                 }
             } else {
                 nextBtn.style.display = 'none';
@@ -1400,37 +1402,44 @@
         function goToNextKit() {
             saveCurrentKitState();
             
-            // Marcar como completado y quitar parpadeo
+            // Marcar como completado el kit actual
             const currentNavBtn = document.querySelectorAll('.kit-nav-btn')[currentKit + 1]; // +1 por el botón back
             if (currentNavBtn) {
                 currentNavBtn.classList.add('completed');
-                currentNavBtn.classList.remove('next-blink');
+                currentNavBtn.classList.remove('next-to-complete');
             }
 
             if (currentKit < totalKits) {
+                // Ir al siguiente kit
                 currentKit++;
                 updateCurrentKitDisplay();
                 loadKitState();
                 updateNavigation();
                 
-                // NAVEGACIÓN AUTOMÁTICA: Ir al siguiente kit
+                // NAVEGACIÓN AUTOMATIZADA: Hacer parpadear el siguiente kit si existe
+                if (currentKit < totalKits) {
+                    const nextNavBtn = document.querySelectorAll('.kit-nav-btn')[currentKit + 2]; // +2 por el botón back y el kit actual
+                    if (nextNavBtn) {
+                        nextNavBtn.classList.add('next-to-complete');
+                    }
+                }
+                
+                // Scroll a contadores del nuevo kit
                 setTimeout(() => {
                     document.getElementById('countersSection').scrollIntoView({ 
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    showAlert(`🎨 Kit ${currentKit - 1} completado! Personaliza el Kit ${currentKit}`, 'success');
-                }, 500);
+                    showAlert(`✅ Kit ${currentKit - 1} completado! Personaliza el Kit ${currentKit}`, 'success');
+                }, 300);
+                
             } else {
-                // NAVEGACIÓN AUTOMÁTICA: Ir al resumen final
+                // Todos los kits completados
                 showShippingSection();
             }
         }
 
         function showShippingSection() {
-            // Quitar cualquier parpadeo
-            removeNextKitHighlight();
-            
             // Ocultar secciones de personalización
             document.getElementById('kitNavigationBar').style.display = 'none';
             document.getElementById('currentKitInfo').style.display = 'none';
@@ -1444,15 +1453,24 @@
 
             updateOrderSummary();
             updatePaymentAmount();
-
-            // NAVEGACIÓN AUTOMÁTICA: Ir al resumen del pedido
+            
+            // NAVEGACIÓN AUTOMATIZADA: Scroll al resumen y luego al pago
             setTimeout(() => {
                 document.getElementById('shippingSection').scrollIntoView({ 
                     behavior: 'smooth',
                     block: 'start'
                 });
-                showAlert('🎉 ¡Todos los kits completados! Revisa tu resumen y completa los datos de envío', 'success');
-            }, 800);
+                showAlert('🎉 ¡Todos los kits personalizados! Revisa tu resumen y completa tus datos', 'success');
+            }, 500);
+            
+            // Después de 3 segundos, scroll automático al pago
+            setTimeout(() => {
+                document.getElementById('paymentSection').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                showAlert('💳 Completa tus datos de envío para habilitar el botón de WhatsApp', 'success');
+            }, 4000);
         }
 
         // UTILIDADES
@@ -1539,7 +1557,24 @@
             const telefono = document.getElementById('telefono').value.trim();
             const direccion = document.getElementById('direccion').value.trim();
             const ciudad = document.getElementById('ciudad').value.trim();
-            return nombre && telefono && direccion && ciudad;
+            
+            const isComplete = nombre && telefono && direccion && ciudad;
+            
+            // Habilitar/deshabilitar botón de WhatsApp
+            const whatsappBtn = document.getElementById('whatsappButton');
+            if (whatsappBtn) {
+                if (isComplete) {
+                    whatsappBtn.disabled = false;
+                    whatsappBtn.textContent = '📱 Enviar Pedido por WhatsApp';
+                    whatsappBtn.classList.remove('disabled');
+                } else {
+                    whatsappBtn.disabled = true;
+                    whatsappBtn.textContent = '⏳ Completa tu información de envío';
+                    whatsappBtn.classList.add('disabled');
+                }
+            }
+            
+            return isComplete;
         }
 
         function showAlert(message, type) {
@@ -1618,24 +1653,21 @@
             document.getElementById('confirmQuantityBtn').addEventListener('click', confirmKitQuantity);
             document.getElementById('nextKitBtn').addEventListener('click', goToNextKit);
             
-            // Validación en tiempo real del formulario con navegación automática
+            // Validación en tiempo real del formulario
             ['nombreCompleto', 'telefono', 'direccion', 'ciudad'].forEach(id => {
                 const input = document.getElementById(id);
                 if (input) {
                     input.addEventListener('input', function() {
-                        if (validateRequiredFields()) {
-                            // NAVEGACIÓN AUTOMÁTICA: Ir al pago cuando se completen los datos
-                            setTimeout(() => {
-                                document.getElementById('paymentSection').scrollIntoView({ 
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
-                                showAlert('✅ ¡Información completa! Ya puedes enviar tu pedido por WhatsApp', 'success');
-                            }, 1000);
+                        const isComplete = validateRequiredFields();
+                        if (isComplete) {
+                            showAlert('✅ ¡Información completa! Ya puedes enviar tu pedido', 'success');
                         }
                     });
                 }
             });
+            
+            // Validación inicial del botón
+            validateRequiredFields();
         });
     </script>
 </body>
