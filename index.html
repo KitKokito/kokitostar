@@ -696,36 +696,56 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .motivos-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 15px; 
-            }
             .colores-grid { grid-template-columns: repeat(2, 1fr); }
             .form-row { grid-template-columns: 1fr; }
             .counters { flex-direction: column; gap: 15px; }
             .special-motivo-item { flex-direction: column; gap: 10px; }
             
-            .motivo-item {
-                max-width: none;
-                min-height: 200px;
+            .motivos-grid { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 12px; 
             }
             
-            .motivo-image-container {
-                width: 100px;
-                height: 100px;
+            .motivo-item {
+                max-width: none;
+                min-height: 180px;
                 padding: 15px;
             }
             
+            .motivo-image-container {
+                width: 90px;
+                height: 90px;
+                padding: 12px;
+            }
+            
             .motivo-image {
-                width: 70px;
-                height: 70px;
+                width: 66px;
+                height: 66px;
+            }
+            
+            .motivo-name {
+                font-size: 0.95em;
+                margin-bottom: 8px;
+            }
+            
+            .btn-quantity {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .quantity-display {
+                width: 38px;
+                height: 35px;
+                font-size: 1.1em;
             }
         }
 
         @media (max-width: 480px) {
+            /* MANTENER 3 COLUMNAS TAMBIÉN EN MÓVILES */
             .motivos-grid { 
-                grid-template-columns: 1fr; 
-                gap: 15px;
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 8px;
             }
             
             /* MANTENER LOS CONTROLES HORIZONTALES EN MÓVIL */
@@ -738,7 +758,40 @@
             }
             
             .motivo-item {
-                min-height: 180px;
+                min-height: 160px;
+                padding: 10px;
+            }
+            
+            .motivo-image-container {
+                width: 70px;
+                height: 70px;
+                padding: 8px;
+            }
+            
+            .motivo-image {
+                width: 54px;
+                height: 54px;
+            }
+            
+            .motivo-name {
+                font-size: 0.85em;
+                margin-bottom: 6px;
+            }
+            
+            .btn-quantity {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+            
+            .quantity-display {
+                width: 32px;
+                height: 30px;
+                font-size: 1em;
+            }
+            
+            .quantity-controls {
+                gap: 8px;
             }
         }
     </style>
