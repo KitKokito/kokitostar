@@ -1006,6 +1006,12 @@
         const KIT_PRICE = 145000;
         const SHIPPING_PRICE = 10000;
 
+        // CONFIGURACIÓN GOOGLE SHEETS
+        const GOOGLE_SHEETS_CONFIG = {
+            scriptURL: 'https://script.google.com/macros/s/AKfycbyYBA9NADPcPgl2WsppoyWM2Ubl1Y5mdetBsvfpeHPjZzSVagazyqHQ0sKj9L02lOj7/exec', // AQUÍ VAS A PONER TU URL DEL SCRIPT DE GOOGLE APPS SCRIPT
+            enabled: true // Cambia a true cuando tengas configurado el script
+        };
+
         const motivos = [
             'Águila', 'Araña', 'Arcoíris', 'Barbie', 'Batman', 'Beso', 
             'Caballo', 'Carita feliz', 'Corazón Karol G', 'Delfín', 
@@ -1062,7 +1068,106 @@
             'Unicornio': 'motivos/K_Unicornio.png'
         };
 
-        // FUNCIONES PRINCIPALES
+        // FUNCIÓN PARA ENVIAR DATOS A GOOGLE SHEETS
+        async function enviarDatosAGoogleSheets(datos) {
+            if (!GOOGLE_SHEETS_CONFIG.enabled || !GOOGLE_SHEETS_CONFIG.scriptURL) {
+                console.log('Google Sheets no configurado');
+                return false;
+            }
+
+            try {
+                const response = await fetch(GOOGLE_SHEETS_CONFIG.scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(datos)
+                });
+                
+                console.log('Datos enviados a Google Sheets exitosamente');
+                return true;
+            } catch (error) {
+                console.error('Error enviando datos a Google Sheets:', error);
+                return false;
+            }
+        }
+
+        // FUNCIÓN PARA PREPARAR DATOS DEL PEDIDO
+        function prepararDatosPedido() {
+            const nombre = document.getElementById('nombreCompleto').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const unidad = document.getElementById('unidad').value.trim();
+            const ciudad = document.getElementById('ciudad').value.trim();
+
+            const kitsTotal = totalKits * KIT_PRICE;
+            const total = kitsTotal + SHIPPING_PRICE;
+
+            // Preparar datos del pedido
+            const pedidoData = {
+                fecha: new Date().toLocaleString('es-CO'),
+                cliente: {
+                    nombre: nombre,
+                    telefono: telefono,
+                    direccion: direccion,
+                    unidad: unidad || '',
+                    ciudad: ciudad
+                },
+                pedido: {
+                    totalKits: totalKits,
+                    precioKits: kitsTotal,
+                    precioDomicilio: SHIPPING_PRICE,
+                    precioTotal: total
+                },
+                kits: []
+            };
+
+            // Agregar información de cada kit
+            for (let i = 1; i <= totalKits; i++) {
+                const kitData = kitsData[i];
+                const kitInfo = {
+                    numeroKit: i,
+                    motivosRegulares: [],
+                    motivosEspeciales: [],
+                    colores: []
+                };
+
+                // Motivos regulares
+                Object.keys(kitData.motivos).forEach(motivo => {
+                    if (kitData.motivos[motivo] > 0) {
+                        kitInfo.motivosRegulares.push({
+                            nombre: motivo,
+                            cantidad: kitData.motivos[motivo]
+                        });
+                    }
+                });
+
+                // Motivos especiales
+                kitData.motivosEspeciales.forEach(motivo => {
+                    if (motivo.nombre.trim() && motivo.cantidad > 0) {
+                        kitInfo.motivosEspeciales.push({
+                            nombre: motivo.nombre,
+                            cantidad: motivo.cantidad
+                        });
+                    }
+                });
+
+                // Colores
+                kitData.colores.forEach(colorIndex => {
+                    kitInfo.colores.push({
+                        nombre: colores[colorIndex].name,
+                        emoji: colores[colorIndex].emoji
+                    });
+                });
+
+                pedidoData.kits.push(kitInfo);
+            }
+
+            return pedidoData;
+        }
+
+        // FUNCIONES PRINCIPALES (sin cambios en la funcionalidad existente)
         function initializeApp() {
             updateKitQuantityDisplay();
             updatePriceDisplay();
@@ -1651,10 +1756,25 @@
             setTimeout(() => alertsContainer.innerHTML = '', 3000);
         }
 
-        function enviarWhatsApp() {
+        // FUNCIÓN PRINCIPAL PARA ENVIAR POR WHATSAPP (MODIFICADA PARA INCLUIR GOOGLE SHEETS)
+        async function enviarWhatsApp() {
             if (!validateRequiredFields()) {
                 showAlert('❌ Completa todos los campos obligatorios', 'danger');
                 return;
+            }
+
+            // Preparar datos para Google Sheets
+            const pedidoData = prepararDatosPedido();
+            
+            // Intentar enviar a Google Sheets
+            if (GOOGLE_SHEETS_CONFIG.enabled) {
+                showAlert('📊 Guardando pedido...', 'success');
+                const enviado = await enviarDatosAGoogleSheets(pedidoData);
+                if (enviado) {
+                    showAlert('✅ Pedido guardado en base de datos', 'success');
+                } else {
+                    showAlert('⚠️ Error al guardar en base de datos, pero el pedido continuará', 'warning');
+                }
             }
 
             const nombre = document.getElementById('nombreCompleto').value.trim();
