@@ -184,6 +184,35 @@
             color: white;
         }
 
+        /* CÓDIGO DE COMPRA DISPLAY */
+        .purchase-code-display {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border: 3px solid #ff6b35;
+        }
+
+        .purchase-code-display h3 {
+            color: white;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .purchase-code {
+            background: white;
+            color: #ff6b35;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
         /* SELECCIÓN DE CANTIDAD */
         .kit-quantity-section {
             background: linear-gradient(135deg, #E50695, #ff69b4);
@@ -827,6 +856,13 @@
         </div>
 
         <div class="content">
+            <!-- CÓDIGO DE COMPRA DISPLAY -->
+            <div class="purchase-code-display" id="purchaseCodeDisplay" style="display: none;">
+                <h3>🎫 Código de tu Compra</h3>
+                <div class="purchase-code" id="purchaseCode">KIT110625-01</div>
+                <p>Guarda este código para seguimiento de tu pedido</p>
+            </div>
+
             <!-- SELECCIÓN DE CANTIDAD -->
             <div class="kit-quantity-section" id="kitQuantitySection">
                 <h2>🎯 ¿Cuántos kits quieres?</h2>
@@ -1001,6 +1037,10 @@
         let totalKits = 1;
         let currentKit = 1;
         let kitsData = {};
+        let purchaseCode = ''; // Nueva variable para el código de compra
+        let isProcessing = false; // Prevenir clicks múltiples
+        let hasStartedCustomization = false; // Prevenir regeneración de código
+        let orderSubmitted = false; // Prevenir envíos múltiples
         const MAX_MOTIVOS = 30;
         const MAX_COLORES = 6;
         const KIT_PRICE = 145000;
@@ -1068,7 +1108,81 @@
             'Unicornio': 'motivos/K_Unicornio.png'
         };
 
-        // FUNCIÓN PARA ENVIAR DATOS A GOOGLE SHEETS
+        // FUNCIÓN PARA GENERAR CÓDIGO DE COMPRA (MEJORADA)
+        function generarCodigoCompra() {
+            // Si ya existe un código, no generar uno nuevo
+            if (purchaseCode && purchaseCode.length > 0) {
+                return purchaseCode;
+            }
+            
+            const ahora = new Date();
+            const dia = String(ahora.getDate()).padStart(2, '0');
+            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+            const año = String(ahora.getFullYear()).slice(-2);
+            const fechaFormato = dia + mes + año;
+            
+            // Generar número consecutivo basado en timestamp + random para mayor unicidad
+            const timestamp = Date.now();
+            const random = Math.floor(Math.random() * 100);
+            const consecutivo = String((timestamp + random) % 10000).padStart(4, '0').slice(-2);
+            
+            const codigo = `KIT${fechaFormato}-${consecutivo}`;
+            
+            // Guardar en localStorage para persistencia entre sesiones
+            try {
+                localStorage.setItem('kokito_purchase_code', codigo);
+                localStorage.setItem('kokito_code_timestamp', timestamp.toString());
+            } catch (e) {
+                console.log('localStorage no disponible');
+            }
+            
+            return codigo;
+        }
+
+        // FUNCIÓN PARA VERIFICAR SI EXISTE CÓDIGO PREVIO
+        function verificarCodigoExistente() {
+            try {
+                const codigoGuardado = localStorage.getItem('kokito_purchase_code');
+                const timestampGuardado = localStorage.getItem('kokito_code_timestamp');
+                
+                if (codigoGuardado && timestampGuardado) {
+                    const tiempoTranscurrido = Date.now() - parseInt(timestampGuardado);
+                    const horasTranscurridas = tiempoTranscurrido / (1000 * 60 * 60);
+                    
+                    // Si han pasado menos de 2 horas, usar el código existente
+                    if (horasTranscurridas < 2) {
+                        purchaseCode = codigoGuardado;
+                        return true;
+                    } else {
+                        // Limpiar código expirado
+                        localStorage.removeItem('kokito_purchase_code');
+                        localStorage.removeItem('kokito_code_timestamp');
+                    }
+                }
+            } catch (e) {
+                console.log('Error verificando código existente');
+            }
+            return false;
+        }
+
+        // FUNCIÓN PARA MOSTRAR CÓDIGO DE COMPRA (MEJORADA)
+        function mostrarCodigoCompra() {
+            // Verificar si ya existe un código
+            const codigoExistente = verificarCodigoExistente();
+            
+            if (!codigoExistente) {
+                purchaseCode = generarCodigoCompra();
+            }
+            
+            document.getElementById('purchaseCode').textContent = purchaseCode;
+            document.getElementById('purchaseCodeDisplay').style.display = 'block';
+            
+            if (codigoExistente) {
+                showAlert('🔄 Se recuperó tu sesión anterior. Usando el mismo código de compra.', 'success');
+            }
+        }
+
+        // FUNCIÓN PARA ENVIAR DATOS A GOOGLE SHEETS (MODIFICADA)
         async function enviarDatosAGoogleSheets(datos) {
             if (!GOOGLE_SHEETS_CONFIG.enabled || !GOOGLE_SHEETS_CONFIG.scriptURL) {
                 console.log('Google Sheets no configurado');
@@ -1076,6 +1190,9 @@
             }
 
             try {
+                // Agregar código de compra a los datos
+                datos.codigoCompra = purchaseCode;
+                
                 const response = await fetch(GOOGLE_SHEETS_CONFIG.scriptURL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -1093,7 +1210,7 @@
             }
         }
 
-        // FUNCIÓN PARA PREPARAR DATOS DEL PEDIDO
+        // FUNCIÓN PARA PREPARAR DATOS DEL PEDIDO (MODIFICADA)
         function prepararDatosPedido() {
             const nombre = document.getElementById('nombreCompleto').value.trim();
             const telefono = document.getElementById('telefono').value.trim();
@@ -1106,6 +1223,7 @@
 
             // Preparar datos del pedido
             const pedidoData = {
+                codigoCompra: purchaseCode, // Código de compra agregado
                 fecha: new Date().toLocaleString('es-CO'),
                 cliente: {
                     nombre: nombre,
@@ -1120,7 +1238,13 @@
                     precioDomicilio: SHIPPING_PRICE,
                     precioTotal: total
                 },
-                kits: []
+                kits: [],
+                // Nuevos campos para el área de despachos
+                estado: 'Pendiente',
+                transportadora: '',
+                numeroGuia: '',
+                fechaEnvio: '',
+                observaciones: ''
             };
 
             // Agregar información de cada kit
@@ -1198,44 +1322,77 @@
         }
 
         function confirmKitQuantity() {
-            // Inicializar datos para cada kit
-            kitsData = {};
-            for (let i = 1; i <= totalKits; i++) {
-                kitsData[i] = {
-                    motivos: {},
-                    motivosEspeciales: [],
-                    colores: []
-                };
-                motivos.forEach(motivo => {
-                    kitsData[i].motivos[motivo] = 0;
-                });
+            // Prevenir clicks múltiples
+            if (isProcessing || hasStartedCustomization) {
+                showAlert('⏳ Ya se está procesando tu pedido...', 'warning');
+                return;
             }
-
-            // Mostrar secciones
-            document.getElementById('kitQuantitySection').style.display = 'none';
-            document.getElementById('kitNavigationBar').style.display = 'block';
-            document.getElementById('currentKitInfo').style.display = 'block';
-            document.getElementById('instructionsSection').style.display = 'block';
-            document.getElementById('countersSection').style.display = 'block';
-            document.getElementById('motivosSection').style.display = 'block';
-
-            // Configurar navegación
-            createKitNavigation();
-            currentKit = 1;
-            updateCurrentKitDisplay();
-            createMotivosGrid();
-            renderMotivosEspeciales();
-            createColoresGrid();
-            updateCounters();
-
-            // NAVEGACIÓN AUTOMATIZADA: Scroll a instrucciones
+            
+            isProcessing = true;
+            hasStartedCustomization = true;
+            
+            // Deshabilitar botón temporalmente
+            const confirmBtn = document.getElementById('confirmQuantityBtn');
+            const originalText = confirmBtn.textContent;
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = '⏳ Procesando...';
+            
             setTimeout(() => {
-                document.getElementById('instructionsSection').scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                showAlert('👆 Lee las instrucciones y luego personaliza tu primer kit', 'success');
-            }, 500);
+                // Generar y mostrar código de compra
+                mostrarCodigoCompra();
+                
+                // Inicializar datos para cada kit
+                kitsData = {};
+                for (let i = 1; i <= totalKits; i++) {
+                    kitsData[i] = {
+                        motivos: {},
+                        motivosEspeciales: [],
+                        colores: []
+                    };
+                    motivos.forEach(motivo => {
+                        kitsData[i].motivos[motivo] = 0;
+                    });
+                }
+
+                // Mostrar secciones
+                document.getElementById('kitQuantitySection').style.display = 'none';
+                document.getElementById('kitNavigationBar').style.display = 'block';
+                document.getElementById('currentKitInfo').style.display = 'block';
+                document.getElementById('instructionsSection').style.display = 'block';
+                document.getElementById('countersSection').style.display = 'block';
+                document.getElementById('motivosSection').style.display = 'block';
+
+                // Configurar navegación
+                createKitNavigation();
+                currentKit = 1;
+                updateCurrentKitDisplay();
+                createMotivosGrid();
+                renderMotivosEspeciales();
+                createColoresGrid();
+                updateCounters();
+
+                // NAVEGACIÓN AUTOMATIZADA: Scroll a código de compra primero
+                setTimeout(() => {
+                    document.getElementById('purchaseCodeDisplay').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    showAlert('🎫 ¡Tu código de compra ha sido generado! Guárdalo para seguimiento', 'success');
+                }, 500);
+
+                // Luego scroll a instrucciones
+                setTimeout(() => {
+                    document.getElementById('instructionsSection').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    showAlert('👆 Lee las instrucciones y luego personaliza tu primer kit', 'success');
+                }, 3000);
+                
+                // Resetear estado de procesamiento
+                isProcessing = false;
+                
+            }, 1000); // Delay de 1 segundo para mostrar el estado de procesamiento
         }
 
         function createKitNavigation() {
@@ -1666,7 +1823,15 @@
 
         function updateOrderSummary() {
             const container = document.getElementById('orderSummary');
-            container.innerHTML = '<h3 style="color: #E50695; text-align: center; margin-bottom: 20px;">📋 Resumen del Pedido</h3>';
+            container.innerHTML = `
+                <h3 style="color: #E50695; text-align: center; margin-bottom: 20px;">📋 Resumen del Pedido</h3>
+                <div style="background: linear-gradient(135deg, #ff6b35, #f7931e); border-radius: 10px; padding: 15px; margin-bottom: 20px; text-align: center;">
+                    <h4 style="color: white; margin-bottom: 10px;">🎫 Código de Compra</h4>
+                    <div style="background: white; color: #ff6b35; padding: 10px; border-radius: 8px; font-weight: bold; font-family: monospace; letter-spacing: 1px;">
+                        ${purchaseCode}
+                    </div>
+                </div>
+            `;
 
             for (let i = 1; i <= totalKits; i++) {
                 const kitData = kitsData[i];
@@ -1756,7 +1921,7 @@
             setTimeout(() => alertsContainer.innerHTML = '', 3000);
         }
 
-        // FUNCIÓN PRINCIPAL PARA ENVIAR POR WHATSAPP (MODIFICADA PARA INCLUIR GOOGLE SHEETS)
+        // FUNCIÓN PRINCIPAL PARA ENVIAR POR WHATSAPP (MODIFICADA PARA INCLUIR CÓDIGO)
         async function enviarWhatsApp() {
             if (!validateRequiredFields()) {
                 showAlert('❌ Completa todos los campos obligatorios', 'danger');
@@ -1784,6 +1949,7 @@
             const ciudad = document.getElementById('ciudad').value.trim();
 
             let mensaje = "🎨 *PEDIDO KOKITO STAR* 🎨\n\n";
+            mensaje += `🎫 *Código:* ${purchaseCode}\n\n`; // Código agregado al mensaje
             mensaje += `📦 *${totalKits} Kit${totalKits > 1 ? 's' : ''}*\n\n`;
             
             for (let i = 1; i <= totalKits; i++) {
@@ -1832,23 +1998,68 @@
             showAlert('✅ Pedido enviado!', 'success');
         }
 
-        // INICIALIZACIÓN
+        // INICIALIZACIÓN (MEJORADA CON RECUPERACIÓN DE SESIÓN)
         document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si hay una sesión previa
+            const codigoExistente = verificarCodigoExistente();
+            
+            // Verificar si hay un pedido completado recientemente
+            try {
+                const orderCompleted = localStorage.getItem('kokito_order_completed');
+                const completionTime = localStorage.getItem('kokito_completion_time');
+                
+                if (orderCompleted && completionTime) {
+                    const tiempoTranscurrido = Date.now() - parseInt(completionTime);
+                    const minutosTranscurridos = tiempoTranscurrido / (1000 * 60);
+                    
+                    // Si se completó un pedido hace menos de 30 minutos, mostrar mensaje
+                    if (minutosTranscurridos < 30) {
+                        setTimeout(() => {
+                            showAlert('✅ Ya completaste un pedido recientemente. Si necesitas hacer otro pedido, espera 30 minutos.', 'success');
+                        }, 1000);
+                    } else {
+                        // Limpiar datos de pedido completado si han pasado más de 30 minutos
+                        localStorage.removeItem('kokito_order_completed');
+                        localStorage.removeItem('kokito_completion_time');
+                    }
+                }
+            } catch (e) {
+                console.log('Error verificando pedido completado');
+            }
+            
             initializeApp();
             
-            document.getElementById('decreaseKitsBtn').addEventListener('click', () => changeKitQuantity(-1));
-            document.getElementById('increaseKitsBtn').addEventListener('click', () => changeKitQuantity(1));
-            document.getElementById('confirmQuantityBtn').addEventListener('click', confirmKitQuantity);
-            document.getElementById('nextKitBtn').addEventListener('click', goToNextKit);
+            // Event listeners con prevención de clicks múltiples
+            document.getElementById('decreaseKitsBtn').addEventListener('click', (e) => {
+                if (isProcessing) return;
+                changeKitQuantity(-1);
+            });
+            
+            document.getElementById('increaseKitsBtn').addEventListener('click', (e) => {
+                if (isProcessing) return;
+                changeKitQuantity(1);
+            });
+            
+            document.getElementById('confirmQuantityBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                confirmKitQuantity();
+            });
+            
+            document.getElementById('nextKitBtn').addEventListener('click', (e) => {
+                if (isProcessing) return;
+                goToNextKit();
+            });
             
             // Validación en tiempo real del formulario
             ['nombreCompleto', 'telefono', 'direccion', 'ciudad'].forEach(id => {
                 const input = document.getElementById(id);
                 if (input) {
                     input.addEventListener('input', function() {
-                        const isComplete = validateRequiredFields();
-                        if (isComplete) {
-                            showAlert('✅ ¡Información completa! Ya puedes enviar tu pedido', 'success');
+                        if (!orderSubmitted) {
+                            const isComplete = validateRequiredFields();
+                            if (isComplete) {
+                                showAlert('✅ ¡Información completa! Ya puedes enviar tu pedido', 'success');
+                            }
                         }
                     });
                 }
@@ -1856,7 +2067,25 @@
             
             // Validación inicial del botón
             validateRequiredFields();
+            
+            // Prevenir envío múltiple del formulario con Enter
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && (orderSubmitted || isProcessing)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Advertencia antes de salir si hay un pedido en proceso
+            window.addEventListener('beforeunload', function(e) {
+                if (hasStartedCustomization && !orderSubmitted) {
+                    e.preventDefault();
+                    e.returnValue = '¿Estás seguro de que quieres salir? Perderás tu progreso de personalización.';
+                    return e.returnValue;
+                }
+            });
         });
     </script>
 </body>
-</html>
+</html>="step">
+                    <div class
